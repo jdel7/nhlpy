@@ -5,4 +5,6 @@ A python NHL API wrapper
 
 ## Usage
 
+### To Do
+1. Add a license
 

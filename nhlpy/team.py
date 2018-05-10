@@ -25,5 +25,30 @@ class Team:
         for team in self.data['teams']:
             print(team['name'])
 
+    def next_game(self):
+        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
+        path = path + '?expand=team.schedule.next'
+        response = requests.get(path)
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def last_game(self):
+        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
+        path = path + '?expand=team.schedule.previous'
+        response = requests.get(path)
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def stats(self):
+        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
+        path = path + '?expand=team.stats'
+        response = requests.get(path)
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+
 
 

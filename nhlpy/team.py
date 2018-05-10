@@ -1,16 +1,24 @@
+
 import requests
 import json
+
+from constants import BASE_URL
 
 class Team:
 
     def __init__(self, id):
         self.id = id
 
+    def _call(self, param, id, modifier):
+        self.id = id
+        self.param = 'teams'
+        self.modifier = modifier
+        return requests.get('%s/teams/%s' % (BASE_URL, str(self.id)))
+
     def info(self, data=None):
-        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
-        response = requests.get(path)
+        response = requests.get('%s/teams/%s' % (BASE_URL, str(self.id)))
         self.data = response.json()
-        del self.data['copyright'] # Delete the copy right from the beginning of the dictionary
+        del self.data['copyright']
         return self.data
 
     def active_players(self):

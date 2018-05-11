@@ -23,19 +23,19 @@ golden_knights = Team(54)
 print(golden_knights.stats())
 ```
 
-#### Get team`s next game
+#### Get team's next game
 ```python
 golden_knights = Team(54)
 print(golden_knights.next_game())
 ```
 
-#### Get team`s previous game
+#### Get team's previous game
 ```python
 nj_devils = Team(1)
 print(nj_devils.last_game())
 ```
 
-#### Get team`s current active roster
+#### Get team's current active roster
 ```python
 ny_rangers = Team(3)
 print(ny_rangers.roster())

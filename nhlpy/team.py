@@ -1,4 +1,3 @@
-
 import requests
 import json
 
@@ -9,7 +8,7 @@ class Team:
     def __init__(self, id):
         self.id = id
 
-    def info(self, data=None):
+    def info(self):
         response = requests.get('%s/teams/%s' % (BASE_URL, str(self.id)))
         self.data = response.json()
         del self.data['copyright']

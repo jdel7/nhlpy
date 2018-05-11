@@ -1,6 +1,6 @@
 # nhlpy
 `nhlpy` is an easy to use NHL API python wrapper. This wrapper was designed to be very "thin" and easy to use as it just provides helper functions that map directly to the NHL API, and it's purpose it to get you the data you need as quick as possible. 
-All data is returned as a python `dict` 
+All data is returned as a python object of type `dict`. 
 
 ## Installing
 
@@ -9,7 +9,7 @@ All data is returned as a python `dict`
 The NHL API does not require an API key to make requests so all you have to do is install this package and you can start using it!
 
 ### Teams 
-The NHL API gives each team in the league an ID number. When working with the Team class with this wrapper, each instance of Team
+The NHL API gives each team in the league an ID number. When working with the Team class, each instance of Team
 takes a team id as a parameter. For a list of known team id's please see the document [team-ids.md](https://google.com).
 
 #### Get general team information

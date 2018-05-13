@@ -50,6 +50,96 @@ class Player:
         del self.data['copyright']
         return self.data
 
+    def split_by_month(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=byMonth&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def split_by_day(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=byDayOfWeek&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def split_by_division(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=vsDivision&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def split_by_conference(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=vsConference&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def split_by_team(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=vsTeam&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def split_by_game(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=gameLog&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def regular_season_standing(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=regularSeasonStatRankings&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    def goals_by_game_situation(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=goalsByGameSituation&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    """
+    This only works with the current in-progress season during the regular season
+    """
+    def on_pace_stats(self, year_start, year_end):
+        self.year_start = year_start
+        self.year_end = year_end
+        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
+            'stats?stats=onPaceRegularSeason&season=', str(self.year_start), str(self.year_end)))
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+
+
+
+
+
+
 
 
 

@@ -42,10 +42,22 @@ class Team:
         del self.data['copyright']
         return self.data
 
+    """
+    Returns single season stats, regular season stat rankings, and general information about team
+    """
     def stats(self):
         path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
         path = path + '?expand=team.stats'
         response = requests.get(path)
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
+
+    """
+    Only returns the single season stats and regular season stat ranknings
+    """
+    def stats_simple(self):
+        response = requests.get('%s/teams/%s/stats' % (BASE_URL, str(self.id)))
         self.data = response.json()
         del self.data['copyright']
         return self.data

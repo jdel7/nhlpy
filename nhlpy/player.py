@@ -14,9 +14,10 @@ class Player:
 
     def info(self):
         response = requests.get('%s/people/%s' % (BASE_URL, str(self.id)))
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
+        self.data = str(response.json())
+        #del self.data['copyright']
+        parsed = json.loads(self.data)
+        return json.dumps(parsed, indent=4, sort_keys=True)
 
     """
     Get single season stats for a player. Two valid consecutive years must

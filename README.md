@@ -1,3 +1,5 @@
+[nhlpy logo](https://github.com/0xalexdelgado/nhlpy/raw/master/other/pictures/nhlpy.png)
+
 # nhlpy
 `nhlpy` is an easy to use NHL API python wrapper. This wrapper was designed to be very "thin" and easy to use as it just provides helper functions that map directly to the NHL API, and it's purpose it to get you the data you need as quick as possible. 
 All data is returned as a python object of type `dict`. 

@@ -1,6 +1,6 @@
 ![nhlpy logo](https://github.com/0xalexdelgado/nhlpy/blob/master/other/pictures/nhlpy.png)
 
-# nhlpy
+#
 `nhlpy` is an easy to use NHL API python wrapper. This wrapper was designed to be very "thin" and easy to use as it just provides helper functions that map directly to the NHL API, and it's purpose it to get you the data you need as quick as possible. 
 All data is returned as a python object of type `dict`. 
 
@@ -26,6 +26,12 @@ golden_knights = Team(54)
 print(golden_knights.stats())
 ```
 
+#### Get team statistics simplified
+```python
+golden_knights = Team(54)
+print(golden_knights.stats())
+```
+
 #### Get team's next game
 ```python
 golden_knights = Team(54)
@@ -43,6 +49,38 @@ print(nj_devils.last_game())
 ny_rangers = Team(3)
 print(ny_rangers.roster())
 ```
+
+### Games
+
+The game class takes a game ID as a parameter when creating an instance of the class. 
+__Tip to find a game ID:__ If you want to find a game ID you can go to the NHL team website
+of one of the teams that participated in that game, go their schedule, select the game your
+looking for and then copy and paste the game ID from your browser's address bar. The game ID will be the number that begins with the year of when the game took place.  
+
+#### Getting a game's stats 
+__Note:__ This returns about 30,000 lines of statistics. This is best viewed with some kind 
+of JSON viewer.
+```python
+knights_vs_jackets = Game(2017021023)
+print(knights_vs_jackets.all_stats))
+```
+
+#### Getting a game's boxscore
+```python
+knights_vs_jackets = Game(2017021023)
+print(knights_vs_jackets.boxscore))
+```
+
+#### Getting a game's media
+Returns links to media such as pictures and videos of shots, goals, and saves.
+
+```python
+knights_vs_jackets = Game(2017021023)
+print(knights_vs_jackets.media))
+```
+
+
+
 
 __Note__: Each one of the above methods makes a request to the NHL API
 

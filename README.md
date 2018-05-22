@@ -93,6 +93,19 @@ eastern_conference = Conference()
 print(eastern_conference.info(1))
 ```
 
+### Divisions
+
+#### Return details for all current NHL divisions
+```python
+divisions = Division()
+print(divisions.all())
+```
+
+#### Returns details for a specific division ID
+```python
+atlantic = Division()
+print(atlantic.info(6))
+```
 
 __Note__: Each one of the above methods makes a request to the NHL API
 

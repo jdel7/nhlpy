@@ -79,10 +79,23 @@ knights_vs_jackets = Game(2017021023)
 print(knights_vs_jackets.media))
 ```
 
+### Conferences
 
+#### Return details for all current NHL conferences
+```python
+conf = Conference()
+print(conf.all())
+```
+
+#### Return details for specific conference ID
+```python
+eastern_conference = Conference()
+print(eastern_conference.info(1))
+```
 
 
 __Note__: Each one of the above methods makes a request to the NHL API
+
 
 
 

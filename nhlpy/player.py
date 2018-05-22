@@ -14,10 +14,9 @@ class Player:
 
     def info(self):
         response = requests.get('%s/people/%s' % (BASE_URL, str(self.id)))
-        self.data = str(response.json())
-        #del self.data['copyright']
-        parsed = json.loads(self.data)
-        return json.dumps(parsed, indent=4, sort_keys=True)
+        self.data = response.json()
+        del self.data['copyright']
+        return self.data
 
     """
     Get single season stats for a player. Two valid consecutive years must
@@ -105,7 +104,7 @@ class Player:
         del self.data['copyright']
         return self.data
 
-    def regular_season_standing(self, year_start, year_end):
+    def standing(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
         response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
@@ -114,7 +113,7 @@ class Player:
         del self.data['copyright']
         return self.data
 
-    def goals_by_game_situation(self, year_start, year_end):
+    def goals_by_situation(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
         response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),

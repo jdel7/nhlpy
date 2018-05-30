@@ -207,7 +207,12 @@ __Note__: Each one of the above methods makes a request to the NHL API
 
 
 
-
+### To Do
+1. Add a license
+2. Add tests
+3. Add CI
+4. Add code of conduct
+5. Prettify the JSON or `dict` output 
 
 
 

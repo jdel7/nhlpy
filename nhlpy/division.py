@@ -1,7 +1,7 @@
 import requests
 import json
 
-from constants import BASE_URL
+from .constants import BASE_URL
 
 class Division:
 

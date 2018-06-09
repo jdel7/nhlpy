@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
         name = 'nhlpy',
         packages = ['nhlpy'],
-        version = '0.2.1',
+        version = '0.3.0',
         description = 'An easy to use NHL API wrapper',
         author = 'Alexander Delgado',
         author_email = 'jobehico@gmail.com',

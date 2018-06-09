@@ -2,79 +2,115 @@
 
 ## Table of Contents
 
-### Usage
+1. [Usage](#usage)
+2. [Teams](#teams)
+3. [Games](#games)
+4. [Conferences](#conferences)
+5. [Divisions](#divisions)
+6. [Players](#players)
+7. [Schedules](#schedules)
+
+### Usage <a name="usage"></a>
 
 The NHL API does not require an API key to make requests so all you have to do is install this package and start using it!
 
-### Teams
+__Note__: Each one of the below methods makes a single request to the NHL API
+
+### Teams <a name="teams"></a>
 
 The NHL API gives each team in the league an ID number. When working with the Team class, each instance of Team
 takes a team id as a parameter. For a list of known team id's please see the document [team-ids.md](https://google.com).
 
+The team module must be imported for any of the below to work.
+
+```python
+>>> from nhlpy import team
+```
+
 #### Get general team information
 
 ```python
-golden_knights = Team(54)
-print(golden_knights.info())
+>>> golden_knights = team.Team(54)
+>>> golden_knights.info()
+{'teams': [{'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54', 'venue': {'name': 'T-Mobile Arena', 'link': '/api/v1/venues/null', 'city': 'Las Vegas', 'timeZone': {'id': 'America/Los_Angeles', 'offset': -7, 'tz': 'PDT'}}, 'abbreviation': 'VGK', 'teamName': 'Golden Knights', 'locationName': 'Vegas', 'firstYearOfPlay': '2016', 'division': {'id': 15, 'name': 'Pacific', 'link': '/api/v1/divisions/15'}, 'conference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}, 'franchise': {'franchiseId': 38, 'teamName': 'Golden Knights', 'link': '/api/v1/franchises/38'}, 'shortName': 'Vegas', 'officialSiteUrl': 'http://www.vegasgoldenknights.com', 'franchiseId': 38, 'active': True}]}
 ```
 
 #### Get team statistics
 
 ```python
-golden_knights = Team(54)
-print(golden_knights.stats())
+>>> golden_knights = team.Team(54)
+>>> golden_knights.stats()
+{'teams': [{'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54', 'venue': {'name': 'T-Mobile Arena', 'link': '/api/v1/venues/null', 'city': 'Las Vegas', 'timeZone': {'id': 'America/Los_Angeles', 'offset': -7, 'tz': 'PDT'}}, 'abbreviation': 'VGK', 'teamName': 'Golden Knights', 'locationName': 'Vegas', 'firstYearOfPlay': '2016', 'division': {'id': 15, 'name': 'Pacific', 'link': '/api/v1/divisions/15'}, 'conference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}, 'franchise': {'franchiseId': 38, 'teamName': 'Golden Knights', 'link': '/api/v1/franchises/38'}, 'teamStats': [{'type': {'displayName': 'statsSingleSeason'}, 'splits': [{'stat': {'gamesPlayed': 82, 'wins': 51, 'losses': 24, 'ot': 7, 'pts': 109, 'ptPctg': '66.5', 'goalsPerGame': 3.268, 'goalsAgainstPerGame': 2.744, 'evGGARatio': 1.121, 'powerPlayPercentage': '21.4', 'powerPlayGoals': 53.0, 'powerPlayGoalsAgainst': 44.0, 'powerPlayOpportunities': 248.0, 'penaltyKillPercentage': '81.4', 'shotsPerGame': 32.7561, 'shotsAllowed': 30.7439, 'winScoreFirst': 0.829, 'winOppScoreFirst': 0.415, 'winLeadFirstPer': 0.75, 'winLeadSecondPer': 0.861, 'winOutshootOpp': 0.688, 'winOutshotByOpp': 0.517, 'faceOffsTaken': 4987.0, 'faceOffsWon': 2439.0, 'faceOffsLost': 2548.0, 'faceOffWinPercentage': '48.9', 'shootingPctg': 10.0, 'savePctg': 0.911}, 'team': {'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54'}}, {'stat': {'wins': '4th', 'losses': '5th', 'ot': '24th', 'pts': '5th', 'ptPctg': '5th', 'goalsPerGame': '5th', 'goalsAgainstPerGame': '8th', 'evGGARatio': '9th', 'powerPlayPercentage': '11th', 'powerPlayGoals': '12th', 'powerPlayGoalsAgainst': '6th', 'powerPlayOpportunities': '15th', 'penaltyKillOpportunities': '13th', 'penaltyKillPercentage': '10th', 'shotsPerGame': '11th', 'shotsAllowed': '7th', 'winScoreFirst': '6th', 'winOppScoreFirst': '6th', 'winLeadFirstPer': '15th', 'winLeadSecondPer': '15th', 'winOutshootOpp': '1st', 'winOutshotByOpp': '1st', 'faceOffsTaken': '16th', 'faceOffsWon': '20th', 'faceOffsLost': '22nd', 'faceOffWinPercentage': '22nd', 'savePctRank': '12th', 'shootingPctRank': '8th'}, 'team': {'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54'}}]}], 'shortName': 'Vegas', 'officialSiteUrl': 'http://www.vegasgoldenknights.com', 'franchiseId': 38, 'active': True}]}
 ```
 
 #### Get team statistics simplified
 
 ```python
-golden_knights = Team(54)
-print(golden_knights.stats())
+>>> golden_knights = team.Team(54)
+>>> golden_knights.simple_stats()
+{'stats': [{'type': {'displayName': 'statsSingleSeason'}, 'splits': [{'stat': {'gamesPlayed': 82, 'wins': 51, 'losses': 24, 'ot': 7, 'pts': 109, 'ptPctg': '66.5', 'goalsPerGame': 3.268, 'goalsAgainstPerGame': 2.744, 'evGGARatio': 1.121, 'powerPlayPercentage': '21.4', 'powerPlayGoals': 53.0, 'powerPlayGoalsAgainst': 44.0, 'powerPlayOpportunities': 248.0, 'penaltyKillPercentage': '81.4', 'shotsPerGame': 32.7561, 'shotsAllowed': 30.7439, 'winScoreFirst': 0.829, 'winOppScoreFirst': 0.415, 'winLeadFirstPer': 0.75, 'winLeadSecondPer': 0.861, 'winOutshootOpp': 0.688, 'winOutshotByOpp': 0.517, 'faceOffsTaken': 4987.0, 'faceOffsWon': 2439.0, 'faceOffsLost': 2548.0, 'faceOffWinPercentage': '48.9', 'shootingPctg': 10.0, 'savePctg': 0.911}, 'team': {'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54'}}]}, {'type': {'displayName': 'regularSeasonStatRankings'}, 'splits': [{'stat': {'wins': '4th', 'losses': '5th', 'ot': '24th', 'pts': '5th', 'ptPctg': '5th', 'goalsPerGame': '5th', 'goalsAgainstPerGame': '8th', 'evGGARatio': '9th', 'powerPlayPercentage': '11th', 'powerPlayGoals': '12th', 'powerPlayGoalsAgainst': '6th', 'powerPlayOpportunities': '15th', 'penaltyKillOpportunities': '13th', 'penaltyKillPercentage': '10th', 'shotsPerGame': '11th', 'shotsAllowed': '7th', 'winScoreFirst': '6th', 'winOppScoreFirst': '6th', 'winLeadFirstPer': '15th', 'winLeadSecondPer': '15th', 'winOutshootOpp': '1st', 'winOutshotByOpp': '1st', 'faceOffsTaken': '16th', 'faceOffsWon': '20th', 'faceOffsLost': '22nd', 'faceOffWinPercentage': '22nd', 'savePctRank': '12th', 'shootingPctRank': '8th'}, 'team': {'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54'}}]}]}
 ```
 
 #### Get team's next game
 
+Note: The output below is what is returned during the off season. During regular season this returns the actual next game information.
+
 ```python
-golden_knights = Team(54)
-print(golden_knights.next_game())
+>>> golden_knights = team.Team(54)
+>>> golden_knights.next_game()
+{'teams': [{'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54', 'venue': {'name': 'T-Mobile Arena', 'link': '/api/v1/venues/null', 'city': 'Las Vegas', 'timeZone': {'id': 'America/Los_Angeles', 'offset': -7, 'tz': 'PDT'}}, 'abbreviation': 'VGK', 'teamName': 'Golden Knights', 'locationName': 'Vegas', 'firstYearOfPlay': '2016', 'division': {'id': 15, 'name': 'Pacific', 'link': '/api/v1/divisions/15'}, 'conference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}, 'franchise': {'franchiseId': 38, 'teamName': 'Golden Knights', 'link': '/api/v1/franchises/38'}, 'shortName': 'Vegas', 'officialSiteUrl': 'http://www.vegasgoldenknights.com', 'franchiseId': 38, 'active': True}]}
 ```
 
-#### Get team's previous game
+#### Get team's last game
+
+Note: The output below is what is returned during the off season. During regular season this returns the actual last game information.
 
 ```python
-nj_devils = Team(1)
-print(nj_devils.last_game())
+>>> golden_knights = team.Team(54)
+>>> golden_knights.last_game()
+{'teams': [{'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54', 'venue': {'name': 'T-Mobile Arena', 'link': '/api/v1/venues/null', 'city': 'Las Vegas', 'timeZone': {'id': 'America/Los_Angeles', 'offset': -7, 'tz': 'PDT'}}, 'abbreviation': 'VGK', 'teamName': 'Golden Knights', 'locationName': 'Vegas', 'firstYearOfPlay': '2016', 'division': {'id': 15, 'name': 'Pacific', 'link': '/api/v1/divisions/15'}, 'conference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}, 'franchise': {'franchiseId': 38, 'teamName': 'Golden Knights', 'link': '/api/v1/franchises/38'}, 'previousGameSchedule': {'totalItems': 1, 'totalEvents': 0, 'totalGames': 1, 'totalMatches': 0, 'dates': [{'date': '2018-06-07', 'totalItems': 1, 'totalEvents': 0, 'totalGames': 1, 'totalMatches': 0, 'games': [{'gamePk': 2017030415, 'link': '/api/v1/game/2017030415/feed/live', 'gameType': 'P', 'season': '20172018', 'gameDate': '2018-06-08T00:00:00Z', 'status': {'abstractGameState': 'Final', 'codedGameState': '7', 'detailedState': 'Final', 'statusCode': '7', 'startTimeTBD': False}, 'teams': {'away': {'leagueRecord': {'wins': 16, 'losses': 8, 'type': 'league'}, 'score': 4, 'team': {'id': 15, 'name': 'Washington Capitals', 'link': '/api/v1/teams/15'}}, 'home': {'leagueRecord': {'wins': 13, 'losses': 7, 'type': 'league'}, 'score': 3, 'team': {'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54'}}}, 'venue': {'name': 'T-Mobile Arena', 'link': '/api/v1/venues/null'}, 'content': {'link': '/api/v1/game/2017030415/content'}}], 'events': [], 'matches': []}]}, 'shortName': 'Vegas', 'officialSiteUrl': 'http://www.vegasgoldenknights.com', 'franchiseId': 38, 'active': True}]}
 ```
 
 #### Get team's current active roster
 
 ```python
-ny_rangers = Team(3)
-print(ny_rangers.roster())
+>>> golden_knights = team.Team(54)
+>>> golden_knights.roster()
+{'teams': [{'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54', 'venue': {'name': 'T-Mobile Arena', 'link': '/api/v1/venues/null', 'city': 'Las Vegas', 'timeZone': {'id': 'America/Los_Angeles', 'offset': -7, 'tz': 'PDT'}}, 'abbreviation': 'VGK', 'teamName': 'Golden Knights', 'locationName': 'Vegas', 'firstYearOfPlay': '2016', 'division': {'id': 15, 'name': 'Pacific', 'link': '/api/v1/divisions/15'}, 'conference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}, 'franchise': {'franchiseId': 38, 'teamName': 'Golden Knights', 'link': '/api/v1/franchises/38'}, 'roster': {'roster': [{'person': {'id': 8470886, 'fullName': 'Clayton Stoner', 'link': '/api/v1/people/8470886'}, 'jerseyNumber': '4', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8468674, 'fullName': 'Deryk Engelland', 'link': '/api/v1/people/8468674'}, 'jerseyNumber': '5', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8470594, 'fullName': 'Marc-Andre Fleury', 'link': '/api/v1/people/8470594'}, 'jerseyNumber': '29', 'position': {'code': 'G', 'name': 'Goalie', 'type': 'Goalie', 'abbreviation': 'G'}}, {'person': {'id': 8471707, 'fullName': 'James Neal', 'link': '/api/v1/people/8471707'}, 'jerseyNumber': '18', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, {'person': {'id': 8471817, 'fullName': 'Ryan Reaves', 'link': '/api/v1/people/8471817'}, 'jerseyNumber': '75', 'position': {'code': 'R', 'name': 'Right Wing', 'type': 'Forward', 'abbreviation': 'RW'}}, {'person': {'id': 8474102, 'fullName': 'David Perron', 'link': '/api/v1/people/8474102'}, 'jerseyNumber': '57', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, {'person': {'id': 8474520, 'fullName': 'Jason Garrison', 'link': '/api/v1/people/8474520'}, 'jerseyNumber': '7', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8474579, 'fullName': 'Luca Sbisa', 'link': '/api/v1/people/8474579'}, 'jerseyNumber': '47', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8475188, 'fullName': 'Brayden McNabb', 'link': '/api/v1/people/8475188'}, 'jerseyNumber': '3', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8475191, 'fullName': 'Reilly Smith', 'link': '/api/v1/people/8475191'}, 'jerseyNumber': '19', 'position': {'code': 'R', 'name': 'Right Wing', 'type': 'Forward', 'abbreviation': 'RW'}}, {'person': {'id': 8475193, 'fullName': 'Tomas Tatar', 'link': '/api/v1/people/8475193'}, 'jerseyNumber': '90', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, {'person': {'id': 8475204, 'fullName': 'Brandon Pirri', 'link': '/api/v1/people/8475204'}, 'jerseyNumber': '73', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8475236, 'fullName': 'Cody Eakin', 'link': '/api/v1/people/8475236'}, 'jerseyNumber': '21', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8475287, 'fullName': 'Erik Haula', 'link': '/api/v1/people/8475287'}, 'jerseyNumber': '56', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, {'person': {'id': 8475715, 'fullName': 'Oscar Lindberg', 'link': '/api/v1/people/8475715'}, 'jerseyNumber': '24', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8475750, 'fullName': 'Jon Merrill', 'link': '/api/v1/people/8475750'}, 'jerseyNumber': '15', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8476391, 'fullName': 'TJ Tynan', 'link': '/api/v1/people/8476391'}, 'jerseyNumber': '68', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8476448, 'fullName': 'William Karlsson', 'link': '/api/v1/people/8476448'}, 'jerseyNumber': '71', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8476509, 'fullName': 'Maxime Lagace', 'link': '/api/v1/people/8476509'}, 'jerseyNumber': '33', 'position': {'code': 'G', 'name': 'Goalie', 'type': 'Goalie', 'abbreviation': 'G'}}, {'person': {'id': 8476525, 'fullName': 'Colin Miller', 'link': '/api/v1/people/8476525'}, 'jerseyNumber': '6', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8476539, 'fullName': 'Jonathan Marchessault', 'link': '/api/v1/people/8476539'}, 'jerseyNumber': '81', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8476617, 'fullName': 'Tomas Hyka', 'link': '/api/v1/people/8476617'}, 'jerseyNumber': '38', 'position': {'code': 'R', 'name': 'Right Wing', 'type': 'Forward', 'abbreviation': 'RW'}}, {'person': {'id': 8476779, 'fullName': 'Brad Hunt', 'link': '/api/v1/people/8476779'}, 'jerseyNumber': '77', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8476852, 'fullName': 'Griffin Reinhart', 'link': '/api/v1/people/8476852'}, 'jerseyNumber': '8', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8476861, 'fullName': 'Oscar Dansk', 'link': '/api/v1/people/8476861'}, 'jerseyNumber': '35', 'position': {'code': 'G', 'name': 'Goalie', 'type': 'Goalie', 'abbreviation': 'G'}}, {'person': {'id': 8476870, 'fullName': 'Stefan Matteau', 'link': '/api/v1/people/8476870'}, 'jerseyNumber': '25', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8476876, 'fullName': 'Malcolm Subban', 'link': '/api/v1/people/8476876'}, 'jerseyNumber': '30', 'position': {'code': 'G', 'name': 'Goalie', 'type': 'Goalie', 'abbreviation': 'G'}}, {'person': {'id': 8476987, 'fullName': 'Jake Bischoff', 'link': '/api/v1/people/8476987'}, 'jerseyNumber': '45', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8477220, 'fullName': 'Nate Schmidt', 'link': '/api/v1/people/8477220'}, 'jerseyNumber': '88', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8477447, 'fullName': 'Shea Theodore', 'link': '/api/v1/people/8477447'}, 'jerseyNumber': '27', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8477478, 'fullName': 'William Carrier', 'link': '/api/v1/people/8477478'}, 'jerseyNumber': '28', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, {'person': {'id': 8477846, 'fullName': 'Ryan Carpenter', 'link': '/api/v1/people/8477846'}, 'jerseyNumber': '40', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8477930, 'fullName': 'Pierre-Edouard Bellemare', 'link': '/api/v1/people/8477930'}, 'jerseyNumber': '41', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, {'person': {'id': 8477931, 'fullName': 'Tomas Nosek', 'link': '/api/v1/people/8477931'}, 'jerseyNumber': '92', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, {'person': {'id': 8477949, 'fullName': 'Alex Tuch', 'link': '/api/v1/people/8477949'}, 'jerseyNumber': '89', 'position': {'code': 'R', 'name': 'Right Wing', 'type': 'Forward', 'abbreviation': 'RW'}}, {'person': {'id': 8478434, 'fullName': 'Keegan Kolesar', 'link': '/api/v1/people/8478434'}, 'jerseyNumber': '55', 'position': {'code': 'R', 'name': 'Right Wing', 'type': 'Forward', 'abbreviation': 'RW'}}, {'person': {'id': 8479980, 'fullName': 'Nicolas Hague', 'link': '/api/v1/people/8479980'}, 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8479996, 'fullName': 'Cody Glass', 'link': '/api/v1/people/8479996'}, 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8480018, 'fullName': 'Nick Suzuki', 'link': '/api/v1/people/8480018'}, 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, {'person': {'id': 8480073, 'fullName': 'Erik Brannstrom', 'link': '/api/v1/people/8480073'}, 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, {'person': {'id': 8480263, 'fullName': 'Dylan Ferguson', 'link': '/api/v1/people/8480263'}, 'jerseyNumber': '1', 'position': {'code': 'G', 'name': 'Goalie', 'type': 'Goalie', 'abbreviation': 'G'}}], 'link': '/api/v1/teams/54/roster'}, 'shortName': 'Vegas', 'officialSiteUrl': 'http://www.vegasgoldenknights.com', 'franchiseId': 38, 'active': True}]}
 ```
 
-### Games
+### Games <a name="games"></a>
 
 The game class takes a game ID as a parameter when creating an instance of the class.
 __Tip to find a game ID:__ If you want to find a game ID you can go to the NHL team website
 of one of the teams that participated in that game, go their schedule, select the game your
 looking for and then copy and paste the game ID from your browser's address bar. The game ID will be the number that begins with the year of when the game took place.
 
-#### Getting a game's stats
-
-__Note:__ This returns about 30,000 lines of statistics. This is best viewed with some kind
-of JSON viewer.
+The game module must be imported for any of the below to work.
 
 ```python
-knights_vs_jackets = Game(2017021023)
-print(knights_vs_jackets.all_stats))
+>>> from nhlpy import game
+```
+
+#### Getting a game's stats
+
+__Note:__ This returns about 30,000 lines of statistics. Basically every single statistic about a game. This is best viewed with some kind
+of JSON viewer. A small sample of the data is being shown.
+
+```python
+>>> knights_vs_jackets = game.Game(2017021023)
+>>> knights_vs_jackets.all_stats()
+{'team': {'id': 54, 'name': 'Vegas Golden Knights', 'link': '/api/v1/teams/54', 'triCode': 'VGK'}}, {'result': {'event': 'Stoppage', 'eventCode': 'CBJ33', 'eventTypeId': 'STOP', 'description': 'Puck in Crowd'}, 'about': {'eventIdx': 65, 'eventId': 33, 'period': 1, 'periodType': 'REGULAR', 'ordinalNum': '1st', 'periodTime': '10:34', 'periodTimeRemaining': '09:26', 'dateTime': '2018-03-07T00:34:17Z', 'goals': {'away': 0, 'home': 1}}, 'coordinates': {}}, {'players': [{'player': {'id': 8471273, 'fullName': 'Brandon Dubinsky', 'link': '/api/v1/people/8471273'}, 'playerType': 'Winner'}, {'player': {'id': 8475287, 'fullName': 'Erik Haula', 'link': '/api/v1/people/8475287'}, 'playerType': 'Loser'}], 'result': {'event': 'Faceoff', 'eventCode': 'CBJ402', 'eventTypeId': 'FACEOFF', 'description': 'Brandon Dubinsky faceoff won against Erik Haula'}, 'about': {'eventIdx': 66, 'eventId': 402, 'period': 1, 'periodType': 'REGULAR', 'ordinalNum': '1st', 'periodTime': '10:34', 'periodTimeRemaining': '09:26', 'dateTime': '2018-03-07T00:34:25Z', 'goals': {'away': 0, 'home': 1}}, 'coordinates': {'x': 69.0, 'y': 22.0}, 'team': {'id': 29, 'name': 'Columbus Blue Jackets', 'link': '/api/v1/teams/29', 'triCode': 'CBJ'}}, {'players': [{'player': {'id': 8476850, 'fullName': 'Ryan Murray', 'link': '/api/v1/people/8476850'}, 'playerType': 'Hitter'}, {'player': {'id': 8474102, 'fullName': 'David Perron', 'link': '/api/v1/people/8474102'}, 'playerType': 'Hittee'}], 'result': {'event': 'Hit', 'eventCode': 'CBJ34', 'eventTypeId': 'HIT', 'description': 'Ryan Murray hit David Perron'}, 'about': {'eventIdx': 67, 'eventId': 34, 'period': 1, 'periodType': 'REGULAR', 'ordinalNum': '1st', 'periodTime': '10:52', 'periodTimeRemaining': '09:08', 'dateTime': '2018-03-07T00:34:56Z', 'goals': {'away': 0, 'home': 1}}, 'coordinates': {'x': -96.0, 'y': -22.0}, 'team': {'id': 29, 'name': 'Columbus Blue Jackets', 'link': '/api/v1/teams/29', 'triCode': 'CBJ'}}, {'players': [{'player': {'id': 8477416, 'fullName': 'Oliver Bjorkstrand', 'link': '/api/v1/people/8477416'}, 'playerType': 'Shooter'}, {'player': {'id': 8470594, 'fullName': 'Marc-Andre Fleury', 'link': '/api/v1/people/8470594'}, 'playerType': 'Goalie'}], 'result': {'event': 'Shot', 'eventCode': 'CBJ403', 'eventTypeId': 'SHOT', 'description': 'Oliver Bjorkstrand Wrist Shot saved by Marc-Andre Fleury', 'secondaryType': 'Wrist Shot'}, 'about': {'eventIdx': 68, 'eventId': 403, 'period': 1, 'periodType': 'REGULAR', 'ordinalNum': '1st', 'periodTime': '11:39', 'periodTimeRemaining':}
 ```
 
 #### Getting a game's boxscore
 
+This returns a lot of data too. Not all of it shown below. 
+
 ```python
-knights_vs_jackets = Game(2017021023)
-print(knights_vs_jackets.boxscore))
+>>> knights_vs_jackets = game.Game(2017021023)
+>>> knights_vs_jackets.boxscore()
+{'name': 'Columbus Blue Jackets', 'link': '/api/v1/teams/29'}, 'primaryPosition': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, 'jerseyNumber': '11', 'position': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}, 'stats': {'skaterStats': {'timeOnIce': '15:14', 'assists': 0, 'goals': 0, 'shots': 0, 'hits': 3, 'powerPlayGoals': 0, 'powerPlayAssists': 0, 'penaltyMinutes': 0, 'faceOffWins': 0, 'faceoffTaken': 0, 'takeaways': 1, 'giveaways': 0, 'shortHandedGoals': 0, 'shortHandedAssists': 0, 'blocked': 1, 'plusMinus': 0, 'evenTimeOnIce': '13:28', 'powerPlayTimeOnIce': '0:13', 'shortHandedTimeOnIce': '1:33'}}}, 'ID8477495': {'person': {'id': 8477495, 'fullName': 'Seth Jones', 'link': '/api/v1/people/8477495', 'firstName': 'Seth', 'lastName': 'Jones', 'primaryNumber': '3', 'birthDate': '1994-10-03', 'currentAge': 23, 'birthCity': 'Arlington', 'birthStateProvince': 'TX', 'birthCountry': 'USA', 'nationality': 'USA', 'height': '6\' 4"', 'weight': 210, 'active': True, 'alternateCaptain': False, 'captain': False, 'rookie': False, 'shootsCatches': 'R', 'rosterStatus': 'Y', 'currentTeam': {'id': 29, 'name': 'Columbus Blue Jackets', 'link': '/api/v1/teams/29'}, 'primaryPosition': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, 'jerseyNumber': '3', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}, 'stats': {'skaterStats': {'timeOnIce': '19:38', 'assists': 0, 'goals': 0, 'shots': 1, 'hits': 0, 'powerPlayGoals': 0, 'powerPlayAssists': 0, 'penaltyMinutes': 2, 'faceOffWins': 0, 'faceoffTaken': 0, 'takeaways': 2, 'giveaways': 1, 'shortHandedGoals': 0, 'shortHandedAssists': 0, 'blocked': 1, 'plusMinus': 3, 'evenTimeOnIce': '16:38', 'powerPlayTimeOnIce': '2:16', 'shortHandedTimeOnIce': '0:44'}}}, 'ID8471273': {'person': {'id': 8471273, 'fullName': 'Brandon Dubinsky', 'link': '/api/v1/people/8471273', 'firstName': 'Brandon', 'lastName': 'Dubinsky', 'primaryNumber': '17', 'birthDate': '1986-04-29', 'currentAge': 32, 'birthCity': 'Anchorage', 'birthStateProvince': 'AK', 'birthCountry': 'USA', 'nationality': 'USA', 'height': '6\' 2"', 'weight': 205, 'active': True, 'alternateCaptain': False, 'captain': False, 'rookie': False, 'shootsCatches': 'L', 'rosterStatus': 'Y', 'currentTeam': {'id': 29, 'name': 'Columbus Blue Jackets', 'link': '/api/v1/teams/29'}, 'primaryPosition': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}}, 'jerseyNumber': '17', 'position': {'code': 'C', 'name': 'Center', 'type': 'Forward', 'abbreviation': 'C'}, 'stats': {'skaterStats': {'timeOnIce': '15:27', 'assists': 0, 'goals': 0, 'shots': 0, 'hits': 3, 'powerPlayGoals': 0, 'powerPlayAssists': 0, 'penaltyMinutes': 0, 'faceOffPct': 57.14, 'faceOffWins': 4, 'faceoffTaken': 7, 'takeaways': 0, 'giveaways': 0, 'shortHandedGoals': 0, 'shortHandedAssists': 0, 'blocked': 0, 'plusMinus': 0, 'evenTimeOnIce': '13:28', 'powerPlayTimeOnIce': '0:05', 'shortHandedTimeOnIce': '1:54'}}}, 'ID8478541': {'person': {'id': 8478541, 'fullName': 'Markus Hannikainen', 'link': '/api/v1/people/8478541', 'firstName': 'Markus', 'lastName': 'Hannikainen', 'primaryNumber': '37', 'birthDate': '1993-03-26', 'currentAge': 25, 'birthCity': 'Helsinki', 'birthCountry': 'FIN', 'nationality': 'FIN', 'height': '6\' 1"', 'weight': 200, 'active': True, 'alternateCaptain': False, 'captain': False, 'rookie': True, 'shootsCatches': 'L', 'rosterStatus': 'Y', 'currentTeam': {'id': 29, 'name': 'Columbus Blue Jackets', 'link': '/api/v1/teams/29'}, 'primaryPosition': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}, 'jerseyNumber': '37', 'position': {'code': 'N/A', 'name': 'Unknown', 'type': 'Unknown', 'abbreviation': 'N/A'}, 'stats': {}}, 'ID8478460': {'person': {'id': 8478460, 'fullName': 'Zach Werenski', 'link': '/api/v1/people/8478460', 'firstName': 'Zach', 'lastName': 'Werenski', 'primaryNumber': '8', 'birthDate': '1997-07-19', 'currentAge': 20, 'birthCity': 'Grosse Pointe', 'birthStateProvince': 'MI', 'birthCountry': 'USA', 'nationality': 'USA', 'height': '6\' 2"', 'weight': 209, 'active': True, 'alternateCaptain': False, 'captain': False, 'rookie': False, 'shootsCatches': 'L', 'rosterStatus': 'Y', 'currentTeam': {'id': 29, 'name': 'Columbus Blue Jackets', 'link': '/api/v1/teams/29'}, 'primaryPosition': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}}, 'jerseyNumber': '8', 'position': {'code': 'D', 'name': 'Defenseman', 'type': 'Defenseman', 'abbreviation': 'D'}, 'stats': {'skaterStats': {'timeOnIce': '16:08', 'assists': 0, 'goals': 1, 'shots': 2, 'hits': 1, 'powerPlayGoals': 0, 'powerPlayAssists': 0, 'penaltyMinutes': 0, 'faceOffWins': 0, 'faceoffTaken': 0, 'takeaways': 2, 'giveaways': 2, 'shortHandedGoals': 0, 'shortHandedAssists': 0, 'blocked': 0, 'plusMinus': 2, 'evenTimeOnIce': '15:10', 'powerPlayTimeOnIce': '0:58', 'shortHandedTimeOnIce': '0:00'}}}}, 'goalies': [8476914], 'skaters': [8477495, 8471677, 8478460, 8478550, 8477505, 8474685, 8474715, 8471273, 8479400, 8477947, 8474013, 8470598, 8476850, 8477416, 8476432, 8473914, 8475233, 8473422, 8476981, 8475683, 8471710, 8478541, 8476449, 8476310], 'onIce': [8470598, 8474013, 8475233, 8476432, 8476914, 8477505], 'onIcePlus': [{'playerId': 8470598, 'shiftDuration': 50, 'stamina': 66}, {'playerId': 8477505, 'shiftDuration': 50, 'stamina': 66}, {'playerId': 8475233, 'shiftDuration': 50, 'stamina': 66}, {'playerId': 8476432, 'shiftDuration': 50, 'stamina': 66}, {'playerId': 8476914, 'shiftDuration': 532, 'stamina': 33}, {'playerId': 8474013, 'shiftDuration': 50, 'stamina': 66}], 'scratches': [8476981, 8475683, 8471710, 8478541, 8476449, 8476310], 'penaltyBox': [], 'coaches': [{'person': {'fullName': 'John Tortorella', 'link': '/api/v1/people/null'}, 'position': {'code': 'HC', 'name': 'Head Coach', 'type': 'Head Coach', 'abbreviation': 'Head Coach'}}]}}, 'officials': [{'official': {'id': 2520, 'fullName': 'Ghislain Hebert', 'link': '/api/v1/people/2520'}, 'officialType': 'Referee'}, {'official': {'id': 2275, 'fullName': 'Marc Joannette', 'link': '/api/v1/people/2275'}, 'officialType': 'Referee'}, {'official': {'id': 4694, 'fullName': 'Shandor Alphonso', 'link': '/api/v1/people/4694'}, 'officialType': 'Linesman'}, {'official': {'id': 7217, 'fullName': 'Libor Suchanek', 'link': '/api/v1/people/7217'}, 'officialType': 'Linesman'}]}
 ```
 
 #### Getting a game's media
@@ -82,143 +118,194 @@ print(knights_vs_jackets.boxscore))
 Returns links to media such as pictures and videos of shots, goals, and saves.
 
 ```python
-knights_vs_jackets = Game(2017021023)
-print(knights_vs_jackets.media))
+>>> knights_vs_jackets = game.Game(2017021023)
+>>> knights_vs_jackets.media()
+{'link': '/api/v1/game/2017021023/content', 'editorial': {'preview': {'title': 'Preview', 'topicList': '', 'items': [{'type': 'article', 'state': 'A', 'date': '2018-03-06T13:00:18-0500', 'id': '296672684', 'headline': 'Golden Knights at Blue Jackets preview', 'subhead': 'Vegas can tie NHL record for road wins by first-year team; Korpisalo gets start for Columbus', 'seoTitle': 'Vegas Golden Knights Columbus Blue Jackets game preview', 'seoDescription': 'Vegas can tie NHL record for road wins by first-year team; Korpisalo gets start for Columbus', 'seoKeywords': 'Vegas Golden Knights, Columbus Blue Jackets, game preview', 'slug': 'vegas-golden-knights-columbus-blue-jackets-game-preview', 'commenting': True, 'tagline': '', 'tokenData': {'token-64D137AEF917847D2518D': {'tokenGUID': 'token-64D137AEF917847D2518D', 'type': 'hyperLink', 'href': 'https://www.nhl.com/player/jeff-zatkoff-8473553', 'hrefMobile': 'https://www.nhl.com/player/jeff-zatkoff-8473553'}, 'token-DEDA0AD4C447CE98E619E': {'tokenGUID': 'token-DEDA0AD4C447CE98E619E', 'type': 'hyperLink', 'href': 'https://www.nhl.com/player/sonny-milano-8477947?season=20172018', 'hrefMobile': 'https://www.nhl.com/player/sonny-milano-8477947?season=20172018'}, 'token-76DD0A9D726D107D6CEA4': {'tokenGUID': 'token-76DD0A9D726D107D6CEA4', 'type': 'playerCard', 'id': '8475683', 'teamId': '29', 'name': 'Sergei Bobrovsky', 'seoName': 'sergei-bobrovsky'}, 'token-9B7D29B3AE7026504D08E': {'tokenGUID': 'token-9B7D29B3AE7026504D08E', 'type': 'playerCard', 'id': '8476914', 'teamId': '29', 'name': 'Joonas Korpisalo', 'seoName': 'joonas-korpisalo'}, 'token-07BB05311F0A0D42C1DA8': {'tokenGUID': 'token-07BB05311F0A0D42C1DA8', 'type': 'playerCard', 'id': '8476448', 'teamId': '54', 'name': 'William Karlsson', 'seoName': 'william-karlsson'}, 'token-F583B6440B5A9039FC087': {'tokenGUID': 'token-F583B6440B5A9039FC087', 'type': 'playerCard', 'id': '8470598', 'teamId': '23', 'name': 'Thomas Vanek', 'seoName': 'thomas-vanek'}, 'token-EC4900662ECB504F89180': {'tokenGUID': 'token-EC4900662ECB504F89180', 'type': 'playerCard', 'id': '8476539', 'teamId': '54', 'name': 'Jonathan Marchessault', 'seoName': 'jonathan-marchessault'}, 'token-C2B0F2439EE4AE1E5D594': {'tokenGUID': 'token-C2B0F2439EE4AE1E5D594', 'type': 'playerCard', 'id': '8475191', 'teamId': '54', 'name': 'Reilly Smith', 'seoName': 'reilly-smith'}, 'token-84F44080AC3D2E5F0E7B9': {'tokenGUID': 'token-84F44080AC3D2E5F0E7B9', 'type': 'playerCard', 'id': '8474102', 'teamId': '54', 'name': 'David Perron', 'seoName': 'david-perron'}, 'token-6C884A2030C53C1A9D085': {'tokenGUID': 'token-6C884A2030C53C1A9D085', 'type': 'playerCard', 'id': '8475287', 'teamId': '54', 'name': 'Erik Haula', 'seoName': 'erik-haula'}, 'token-B3F0ACE93B5B0F32C8CAC': {'tokenGUID': 'token-B3F0ACE93B5B0F32C8CAC', 'type': 'playerCard', 'id': '8475193', 'teamId': '17', 'name': 'Tomas Tatar', 'seoName': 'tomas-tatar'}, 'token-1FAAE18D92E7255F4E38F': {'tokenGUID': 'token-1FAAE18D92E7255F4E38F', 'type': 'playerCard', 'id': '8477930', 'teamId': '54', 'name': 'Pierre-Edouard Bellemare', 'seoName': 'pierre-edouard-bellemare'}, 'token-86611B465C4DC5EBADF83': {'tokenGUID': 'token-86611B465C4DC5EBADF83', 'type': 'playerCard', 'id': '8475236', 'teamId': '54', 'name': 'Cody Eakin', 'seoName': 'cody-eakin'}, 'token-65141E7D080ECA701EC90': {'tokenGUID': 'token-65141E7D080ECA701EC90', 'type': 'playerCard', 'id': '8477949', 'teamId': '54', 'name': 'Alex Tuch', 'seoName': 'alex-tuch'}, 'token-C2A12D4844188D14053AC': {'tokenGUID': 'token-C2A12D4844188D14053AC', 'type': 'playerCard', 'id': '8477846', 'teamId': '54', 'name': 'Ryan Carpenter', 'seoName': 'ryan-carpenter'}, 'token-2DAADA011478FE2A25DBE': {'tokenGUID': 'token-2DAADA011478FE2A25DBE', 'type': 'playerCard', 'id': '8477931', 'teamId': '54', 'name': 'Tomas Nosek', 'seoName': 'tomas-nosek'}, 'token-DEC5381ACB55A156EE18E': {'tokenGUID': 'token-DEC5381ACB55A156EE18E', 'type': 'playerCard', 'id': '8471817', 'teamId': '5', 'name': 'Ryan Reaves', 'seoName': 'ryan-reaves'}, 'token-EEA833A81398BE224DE9C': {'tokenGUID': 'token-EEA833A81398BE224DE9C', 'type': 'playerCard', 'id': '8475188', 'teamId': '54', 'name': 'Brayden McNabb', 'seoName': 'brayden-mcnabb'}, 'token-4671FCC65F23176BBB9B4': {'tokenGUID': 'token-4671FCC65F23176BBB9B4', 'type': 'playerCard', 'id': '8477220', 'teamId': '54', 'name': 'Nate Schmidt', 'seoName': 'nate-schmidt'}, 'token-6B4A68ED76D43ED481AB8': {'tokenGUID': 'token-6B4A68ED76D43ED481AB8', 'type': 'playerCard', 'id': '8477447', 'teamId': '54', 'name': 'Shea Theodore', 'seoName': 'shea-theodore'}, 'token-10871B0B28A1B11EC3CAA': {'tokenGUID': 'token-10871B0B28A1B11EC3CAA', 'type': 'playerCard', 'id': '8468674', 'teamId': '54', 'name': 'Deryk Engelland', 'seoName': 'deryk-engelland'}, 'token-5B3BEB707E5EEA7D53D88': {'tokenGUID': 'token-5B3BEB707E5EEA7D53D88', 'type': 'playerCard', 'id': '8475750', 'teamId': '54', 'name': 'Jon Merrill', 'seoName': 'jon-merrill'}, 'token-87C5B1B178BC59175D4B8': {'tokenGUID': 'token-87C5B1B178BC59175D4B8', 'type': 'playerCard', 'id': '8476525', 'teamId': '54', 'name': 'Colin Miller', 'seoName': 'colin'}
 ```
 
-### Conferences
+### Conferences <a name="conferences"></a>
+
+Information about conferences.
+
+The conference module must be imported for any of the below to work.
+
+```python
+>>> from nhlpy import conference
+```
 
 #### Return details for all current NHL conferences
 
 ```python
-conf = Conference()
-print(conf.all())
+>>> conf = conference.Conference()
+>>> conf.all()
+{'conferences': [{'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6', 'abbreviation': 'E', 'shortName': 'East', 'active': True}, {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5', 'abbreviation': 'W', 'shortName': 'West', 'active': True}]}
 ```
 
 #### Return details for specific conference ID
 
 ```python
-eastern_conference = Conference()
-print(eastern_conference.info(1))
+>>> eastern = conference.Conference()
+>>> eastern.info(1))
+{'conferences': [{'id': 1, 'name': 'Eastern', 'link': '/api/v1/conferences/1', 'abbreviation': 'XVE', 'shortName': 'East', 'active': False}]}
 ```
 
-### Divisions
+### Divisions <a name="divisions"></a>
+
+Information about divisions
+
+The division module must be imported for any of the below to work.
+
+```python
+>>> from nhlpy import division
+```
 
 #### Return details for all current NHL divisions
 
 ```python
-divisions = Division()
-print(divisions.all())
+>>> divisions = division.Division()
+>>> divisions.all()
+{'divisions': [{'id': 17, 'name': 'Atlantic', 'link': '/api/v1/divisions/17', 'abbreviation': 'A', 'conference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}, 'active': True}, {'id': 16, 'name': 'Central', 'link': '/api/v1/divisions/16', 'abbreviation': 'C', 'conference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}, 'active': True}, {'id': 18, 'name': 'Metropolitan', 'link': '/api/v1/divisions/18', 'abbreviation': 'M', 'conference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}, 'active': True}, {'id': 15, 'name': 'Pacific', 'link': '/api/v1/divisions/15', 'abbreviation': 'P', 'conference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}, 'active': True}]}
 ```
 
 #### Returns details for a specific division ID
 
 ```python
-atlantic = Division()
-print(atlantic.info(6))
+>>> pacific = division.Division()
+>>> pacific.info(6)
+{'divisions': [{'id': 6, 'name': 'Pacific', 'link': '/api/v1/divisions/6', 'abbreviation': 'PAC', 'conference': {'id': 2, 'name': 'Western', 'link': '/api/v1/conferences/2'}, 'active': False}]}
 ```
 
-### Player
+### Players <a name="players"></a>
 
-A player ID must be specified when creating an instance of the Player class.
-You can find a player's ID by searching for the player on your favorite search engine and appending NHL to the search. Then take the 7 digit number from the link.
+A player ID must be specified when creating an instance of the Player class. You can find a player's ID by searching for the player on your favorite search engine and appending NHL to the search. Then take the 7 digit number from the link.
 
 For example if you're looking for Alex Ovechkin's player ID, google search
 `alex ovechkin nhl` and the first NHL link will be `https://www.nhl.com/player/alex-ovechkin-8471214`. In this case, Ovechkin's player ID is `8471214` to the NHL API.
 
+The player module must be imported for any of the below to work.
+
+```python
+>>> from nhlpy import player
+```
+
 #### Get General Details of a Player
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.info())
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.info()
+{'people': [{'id': 8471214, 'fullName': 'Alex Ovechkin', 'link': '/api/v1/people/8471214', 'firstName': 'Alex', 'lastName': 'Ovechkin', 'primaryNumber': '8', 'birthDate': '1985-09-17', 'currentAge': 32, 'birthCity': 'Moscow', 'birthCountry': 'RUS', 'nationality': 'RUS', 'height': '6\' 3"', 'weight': 235, 'active': True, 'alternateCaptain': False, 'captain': True, 'rookie': False, 'shootsCatches': 'R', 'rosterStatus': 'Y', 'currentTeam': {'id': 15, 'name': 'Washington Capitals', 'link': '/api/v1/teams/15'}, 'primaryPosition': {'code': 'L', 'name': 'Left Wing', 'type': 'Forward', 'abbreviation': 'LW'}}]}
 ```
 
 #### Single Season Statistics
 
-The `season` method takes two parameters which are valid single season years.
+The `season` method takes two parameters which are valid consecutive single season years.
 Valid: (1992, 1993), (2001, 2002), (2017, 2018)
 Invalid: (1992, 1998), (2001, 2009)
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.season(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.season(2011,2012)
+{'stats': [{'type': {'displayName': 'statsSingleSeason'}, 'splits': [{'season': '20112012', 'stat': {'timeOnIce': '1544:25', 'assists': 27, 'goals': 38, 'pim': 26, 'shots': 303, 'games': 78, 'hits': 215, 'powerPlayGoals': 13, 'powerPlayPoints': 23, 'powerPlayTimeOnIce': '283:26', 'evenTimeOnIce': '1258:58', 'penaltyMinutes': '26', 'faceOffPct': 40.0, 'shotPct': 12.5, 'gameWinningGoals': 3, 'overTimeGoals': 2, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '02:01', 'blocked': 42, 'plusMinus': -8, 'points': 65, 'shifts': 1651, 'timeOnIcePerGame': '19:48', 'evenTimeOnIcePerGame': '16:08', 'shortHandedTimeOnIcePerGame': '00:01', 'powerPlayTimeOnIcePerGame': '03:38'}}]}]}
 ```
 
 #### Split Statistics by Home and Away games
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.home_away(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.home_away(2011,2012)
+{'stats': [{'type': {'displayName': 'homeAndAway'}, 'splits': [{'season': '20112012', 'stat': {'timeOnIce': '791:42', 'assists': 16, 'goals': 16, 'pim': 10, 'shots': 151, 'games': 40, 'hits': 131, 'powerPlayGoals': 5, 'powerPlayPoints': 13, 'powerPlayTimeOnIce': '140:48', 'evenTimeOnIce': '650:10', 'penaltyMinutes': '10', 'shotPct': 0.0, 'gameWinningGoals': 2, 'overTimeGoals': 2, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:44', 'blocked': 28, 'plusMinus': 3, 'points': 32, 'shifts': 846, 'timeOnIcePerGame': '19:47', 'evenTimeOnIcePerGame': '16:15', 'shortHandedTimeOnIcePerGame': '00:01', 'powerPlayTimeOnIcePerGame': '03:31'}, 'isHome': True}, {'season': '20112012', 'stat': {'timeOnIce': '752:43', 'assists': 11, 'goals': 22, 'pim': 16, 'shots': 152, 'games': 38, 'hits': 84, 'powerPlayGoals': 8, 'powerPlayPoints': 10, 'powerPlayTimeOnIce': '142:38', 'evenTimeOnIce': '608:48', 'penaltyMinutes': '16', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '01:17', 'blocked': 14, 'plusMinus': -11, 'points': 33, 'shifts': 805, 'timeOnIcePerGame': '19:48', 'evenTimeOnIcePerGame': '16:01', 'shortHandedTimeOnIcePerGame': '00:02', 'powerPlayTimeOnIcePerGame': '03:45'}, 'isHome': False}]}]}
 ```
 
 #### Split Statistics by Win/Loss/OT
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.win_loss(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.win_loss(2017,2018)
+{'stats': [{'type': {'displayName': 'winLoss'}, 'splits': [{'season': '20172018', 'stat': {'timeOnIce': '975:45', 'assists': 31, 'goals': 39, 'pim': 12, 'shots': 222, 'games': 49, 'hits': 73, 'powerPlayGoals': 13, 'powerPlayPoints': 24, 'powerPlayTimeOnIce': '202:56', 'evenTimeOnIce': '772:23', 'penaltyMinutes': '12', 'shotPct': 0.0, 'gameWinningGoals': 7, 'overTimeGoals': 3, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:26', 'blocked': 18, 'plusMinus': 38, 'points': 70, 'shifts': 1033, 'timeOnIcePerGame': '19:54', 'evenTimeOnIcePerGame': '15:45', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:08'}, 'isWin': True, 'isOT': False}, {'season': '20172018', 'stat': {'timeOnIce': '534:51', 'assists': 5, 'goals': 8, 'pim': 16, 'shots': 109, 'games': 26, 'hits': 52, 'powerPlayGoals': 2, 'powerPlayPoints': 4, 'powerPlayTimeOnIce': '109:48', 'evenTimeOnIce': '423:01', 'penaltyMinutes': '16', 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '02:02', 'blocked': 2, 'plusMinus': -28, 'points': 13, 'shifts': 551, 'timeOnIcePerGame': '20:34', 'evenTimeOnIcePerGame': '16:16', 'shortHandedTimeOnIcePerGame': '00:04', 'powerPlayTimeOnIcePerGame': '04:13'}, 'isWin': False, 'isOT': False}, {'season': '20172018', 'stat': {'timeOnIce': '141:14', 'assists': 2, 'goals': 2, 'pim': 4, 'shots': 24, 'games': 7, 'hits': 14, 'powerPlayGoals': 2, 'powerPlayPoints': 3, 'powerPlayTimeOnIce': '32:07', 'evenTimeOnIce': '109:07', 'penaltyMinutes': '4', 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 1, 'plusMinus': -7, 'points': 4, 'shifts': 146, 'timeOnIcePerGame': '20:10', 'evenTimeOnIcePerGame': '15:35', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:35'}, 'isWin': False, 'isOT': True}]}]}
 ```
 
 #### Split Statistics by Month
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.split_by_month(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.split_by_month(2017,2018)
+{'stats': [{'type': {'displayName': 'byMonth'}, 'splits': [{'season': '20172018', 'stat': {'timeOnIce': '217:03', 'assists': 6, 'goals': 6, 'pim': 4, 'shots': 31, 'games': 10, 'hits': 20, 'powerPlayGoals': 2, 'powerPlayPoints': 6, 'powerPlayTimeOnIce': '54:52', 'evenTimeOnIce': '162:04', 'penaltyMinutes': '4', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:07', 'blocked': 3, 'plusMinus': -1, 'points': 12, 'shifts': 214, 'timeOnIcePerGame': '21:42', 'evenTimeOnIcePerGame': '16:12', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '05:29'}, 'month': 1}, {'season': '20172018', 'stat': {'timeOnIce': '280:45', 'assists': 9, 'goals': 9, 'pim': 4, 'shots': 66, 'games': 14, 'hits': 21, 'powerPlayGoals': 3, 'powerPlayPoints': 5, 'powerPlayTimeOnIce': '47:04', 'evenTimeOnIce': '231:55', 'penaltyMinutes': '4', 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '01:46', 'blocked': 4, 'plusMinus': -3, 'points': 18, 'shifts': 300, 'timeOnIcePerGame': '20:03', 'evenTimeOnIcePerGame': '16:33', 'shortHandedTimeOnIcePerGame': '00:07', 'powerPlayTimeOnIcePerGame': '03:21'}, 'month': 2}, {'season': '20172018', 'stat': {'timeOnIce': '292:24', 'assists': 6, 'goals': 6, 'pim': 6, 'shots': 58, 'games': 14, 'hits': 17, 'powerPlayGoals': 3, 'powerPlayPoints': 4, 'powerPlayTimeOnIce': '59:14', 'evenTimeOnIce': '233:05', 'penaltyMinutes': '6', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:05', 'blocked': 2, 'plusMinus': -1, 'points': 12, 'shifts': 317, 'timeOnIcePerGame': '20:53', 'evenTimeOnIcePerGame': '16:38', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:13'}, 'month': 3}, {'season': '20172018', 'stat': {'timeOnIce': '82:37', 'assists': 0, 'goals': 4, 'pim': 2, 'shots': 21, 'games': 4, 'hits': 5, 'powerPlayGoals': 2, 'powerPlayPoints': 2, 'powerPlayTimeOnIce': '18:33', 'evenTimeOnIce': '64:04', 'penaltyMinutes': '2', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 2, 'plusMinus': -1, 'points': 4, 'shifts': 81, 'timeOnIcePerGame': '20:39', 'evenTimeOnIcePerGame': '16:01', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:38'}, 'month': 4}, {'season': '20172018', 'stat': {'timeOnIce': '221:39', 'assists': 5, 'goals': 10, 'pim': 4, 'shots': 61, 'games': 12, 'hits': 21, 'powerPlayGoals': 3, 'powerPlayPoints': 4, 'powerPlayTimeOnIce': '47:28', 'evenTimeOnIce': '173:42', 'penaltyMinutes': '4', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:29', 'blocked': 3, 'plusMinus': 0, 'points': 15, 'shifts': 242, 'timeOnIcePerGame': '18:28', 'evenTimeOnIcePerGame': '14:28', 'shortHandedTimeOnIcePerGame': '00:02', 'powerPlayTimeOnIcePerGame': '03:57'}, 'month': 10}, {'season': '20172018', 'stat': {'timeOnIce': '272:49', 'assists': 2, 'goals': 8, 'pim': 6, 'shots': 60, 'games': 14, 'hits': 29, 'powerPlayGoals': 2, 'powerPlayPoints': 4, 'powerPlayTimeOnIce': '62:31', 'evenTimeOnIce': '210:18', 'penaltyMinutes': '6', 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 6, 'plusMinus': -1, 'points': 10, 'shifts': 288, 'timeOnIcePerGame': '19:29', 'evenTimeOnIcePerGame': '15:01', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:27'}, 'month': 11}, {'season': '20172018', 'stat': {'timeOnIce': '284:33', 'assists': 10, 'goals': 6, 'pim': 6, 'shots': 58, 'games': 14, 'hits': 26, 'powerPlayGoals': 2, 'powerPlayPoints': 6, 'powerPlayTimeOnIce': '55:09', 'evenTimeOnIce': '229:23', 'penaltyMinutes': '6', 'shotPct': 0.0, 'gameWinningGoals': 3, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:01', 'blocked': 1, 'plusMinus': 10, 'points': 16, 'shifts': 288, 'timeOnIcePerGame': '20:19', 'evenTimeOnIcePerGame': '16:23', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '03:56'}, 'month': 12}]}]}
 ```
 
 #### Split Statistics by Day of Week
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.split_by_day(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.split_by_day(2017,2018)
+{'stats': [{'type': {'displayName': 'byDayOfWeek'}, 'splits': [{'season': '20172018', 'stat': {'timeOnIce': '200:09', 'assists': 2, 'goals': 8, 'pim': 0, 'shots': 57, 'games': 10, 'hits': 16, 'powerPlayGoals': 5, 'powerPlayPoints': 6, 'powerPlayTimeOnIce': '46:40', 'evenTimeOnIce': '153:25', 'penaltyMinutes': '0', 'shotPct': 0.0, 'gameWinningGoals': 2, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:04', 'blocked': 2, 'plusMinus': -6, 'points': 10, 'shifts': 210, 'timeOnIcePerGame': '20:00', 'evenTimeOnIcePerGame': '15:20', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:40'}, 'dayOfWeek': 1}, {'season': '20172018', 'stat': {'timeOnIce': '263:35', 'assists': 6, 'goals': 5, 'pim': 8, 'shots': 58, 'games': 13, 'hits': 28, 'powerPlayGoals': 1, 'powerPlayPoints': 1, 'powerPlayTimeOnIce': '45:53', 'evenTimeOnIce': '216:03', 'penaltyMinutes': '8', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '01:39', 'blocked': 3, 'plusMinus': 2, 'points': 11, 'shifts': 279, 'timeOnIcePerGame': '20:16', 'evenTimeOnIcePerGame': '16:37', 'shortHandedTimeOnIcePerGame': '00:07', 'powerPlayTimeOnIcePerGame': '03:31'}, 'dayOfWeek': 2}, {'season': '20172018', 'stat': {'timeOnIce': '118:56', 'assists': 3, 'goals': 3, 'pim': 6, 'shots': 27, 'games': 6, 'hits': 9, 'powerPlayGoals': 0, 'powerPlayPoints': 1, 'powerPlayTimeOnIce': '23:12', 'evenTimeOnIce': '95:44', 'penaltyMinutes': '6', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 0, 'plusMinus': 5, 'points': 6, 'shifts': 124, 'timeOnIcePerGame': '19:49', 'evenTimeOnIcePerGame': '15:57', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '03:52'}, 'dayOfWeek': 3}, {'season': '20172018', 'stat': {'timeOnIce': '340:13', 'assists': 8, 'goals': 8, 'pim': 4, 'shots': 67, 'games': 16, 'hits': 23, 'powerPlayGoals': 2, 'powerPlayPoints': 5, 'powerPlayTimeOnIce': '83:02', 'evenTimeOnIce': '257:02', 'penaltyMinutes': '4', 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:09', 'blocked': 1, 'plusMinus': 1, 'points': 16, 'shifts': 338, 'timeOnIcePerGame': '21:15', 'evenTimeOnIcePerGame': '16:03', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '05:11'}, 'dayOfWeek': 4}, {'season': '20172018', 'stat': {'timeOnIce': '248:12', 'assists': 8, 'goals': 6, 'pim': 4, 'shots': 43, 'games': 12, 'hits': 17, 'powerPlayGoals': 2, 'powerPlayPoints': 7, 'powerPlayTimeOnIce': '68:03', 'evenTimeOnIce': '179:57', 'penaltyMinutes': '4', 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:12', 'blocked': 8, 'plusMinus': 2, 'points': 14, 'shifts': 245, 'timeOnIcePerGame': '20:41', 'evenTimeOnIcePerGame': '14:59', 'shortHandedTimeOnIcePerGame': '00:01', 'powerPlayTimeOnIcePerGame': '05:40'}, 'dayOfWeek': 5}, {'season': '20172018', 'stat': {'timeOnIce': '313:49', 'assists': 8, 'goals': 15, 'pim': 8, 'shots': 84, 'games': 17, 'hits': 32, 'powerPlayGoals': 4, 'powerPlayPoints': 6, 'powerPlayTimeOnIce': '43:17', 'evenTimeOnIce': '270:29', 'penaltyMinutes': '8', 'shotPct': 0.0, 'gameWinningGoals': 2, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:03', 'blocked': 5, 'plusMinus': 4, 'points': 23, 'shifts': 346, 'timeOnIcePerGame': '18:27', 'evenTimeOnIcePerGame': '15:54', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '02:32'}, 'dayOfWeek': 6}, {'season': '20172018', 'stat': {'timeOnIce': '166:56', 'assists': 3, 'goals': 4, 'pim': 2, 'shots': 19, 'games': 8, 'hits': 14, 'powerPlayGoals': 3, 'powerPlayPoints': 5, 'powerPlayTimeOnIce': '34:44', 'evenTimeOnIce': '131:51', 'penaltyMinutes': '2', 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:21', 'blocked': 2, 'plusMinus': -5, 'points': 7, 'shifts': 188, 'timeOnIcePerGame': '20:52', 'evenTimeOnIcePerGame': '16:28', 'shortHandedTimeOnIcePerGame': '00:02', 'powerPlayTimeOnIcePerGame': '04:20'}, 'dayOfWeek': 7}]}]}
 ```
 
 #### Split Statistics by Division
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.split_by_division(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.split_by_division(2017,2018)
+{'stats': [{'type': {'displayName': 'vsDivision'}, 'splits': [{'season': '20172018', 'stat': {'timeOnIce': '270:10', 'assists': 11, 'goals': 8, 'pim': 10, 'shots': 65, 'games': 14, 'hits': 24, 'powerPlayGoals': 5, 'powerPlayPoints': 8, 'powerPlayTimeOnIce': '56:07', 'evenTimeOnIce': '214:01', 'penaltyMinutes': '10', 'faceOffPct': 0.0, 'faceOffWins': 0, 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:02', 'blocked': 3, 'plusMinus': 1, 'points': 19, 'shifts': 296, 'timeOnIcePerGame': '19:17', 'evenTimeOnIcePerGame': '15:17', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:00'}, 'opponentDivision': {'id': 16, 'name': 'Central', 'link': '/api/v1/divisions/16'}, 'opponentConference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}}, {'season': '20172018', 'stat': {'timeOnIce': '475:59', 'assists': 5, 'goals': 24, 'pim': 10, 'shots': 118, 'games': 24, 'hits': 40, 'powerPlayGoals': 6, 'powerPlayPoints': 11, 'powerPlayTimeOnIce': '93:33', 'evenTimeOnIce': '380:40', 'penaltyMinutes': '10', 'faceOffPct': 0.0, 'faceOffWins': 2, 'shotPct': 0.0, 'gameWinningGoals': 1, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '01:46', 'blocked': 10, 'plusMinus': 4, 'points': 29, 'shifts': 503, 'timeOnIcePerGame': '19:49', 'evenTimeOnIcePerGame': '15:51', 'shortHandedTimeOnIcePerGame': '00:04', 'powerPlayTimeOnIcePerGame': '03:53'}, 'opponentDivision': {'id': 17, 'name': 'Atlantic', 'link': '/api/v1/divisions/17'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}, {'season': '20172018', 'stat': {'timeOnIce': '569:34', 'assists': 15, 'goals': 14, 'pim': 8, 'shots': 119, 'games': 28, 'hits': 41, 'powerPlayGoals': 5, 'powerPlayPoints': 10, 'powerPlayTimeOnIce': '131:57', 'evenTimeOnIce': '437:21', 'penaltyMinutes': '8', 'faceOffPct': 0.0, 'faceOffWins': 1, 'shotPct': 0.0, 'gameWinningGoals': 3, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:16', 'blocked': 7, 'plusMinus': -2, 'points': 29, 'shifts': 583, 'timeOnIcePerGame': '20:20', 'evenTimeOnIcePerGame': '15:37', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:42'}, 'opponentDivision': {'id': 18, 'name': 'Metropolitan', 'link': '/api/v1/divisions/18'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}, {'season': '20172018', 'stat': {'timeOnIce': '336:07', 'assists': 7, 'goals': 3, 'pim': 4, 'shots': 53, 'games': 16, 'hits': 34, 'powerPlayGoals': 1, 'powerPlayPoints': 2, 'powerPlayTimeOnIce': '63:14', 'evenTimeOnIce': '272:29', 'penaltyMinutes': '4', 'faceOffWins': 0, 'shotPct': 0.0, 'gameWinningGoals': 2, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:24', 'blocked': 1, 'plusMinus': 0, 'points': 10, 'shifts': 348, 'timeOnIcePerGame': '21:00', 'evenTimeOnIcePerGame': '17:01', 'shortHandedTimeOnIcePerGame': '00:01', 'powerPlayTimeOnIcePerGame': '03:57'}, 'opponentDivision': {'id': 15, 'name': 'Pacific', 'link': '/api/v1/divisions/15'}, 'opponentConference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}}]}]}
 ```
 
 #### Split Statistics by Conference
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.split_by_conference(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.split_by_conference(2017,2018)
+{'stats': [{'type': {'displayName': 'vsConference'}, 'splits': [{'season': '20172018', 'stat': {'timeOnIce': '606:17', 'assists': 18, 'goals': 11, 'pim': 14, 'shots': 118, 'games': 30, 'hits': 58, 'powerPlayGoals': 6, 'powerPlayPoints': 10, 'powerPlayTimeOnIce': '119:21', 'evenTimeOnIce': '486:30', 'penaltyMinutes': '14', 'faceOffPct': 0.0, 'faceOffWins': 0, 'shotPct': 0.0, 'gameWinningGoals': 3, 'overTimeGoals': 1, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:26', 'blocked': 4, 'plusMinus': 1, 'points': 29, 'shifts': 644, 'timeOnIcePerGame': '20:12', 'evenTimeOnIcePerGame': '16:13', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '03:58'}, 'opponentConference': {'id': 5, 'name': 'Western', 'link': '/api/v1/conferences/5'}}, {'season': '20172018', 'stat': {'timeOnIce': '1045:33', 'assists': 20, 'goals': 38, 'pim': 18, 'shots': 237, 'games': 52, 'hits': 81, 'powerPlayGoals': 11, 'powerPlayPoints': 21, 'powerPlayTimeOnIce': '225:30', 'evenTimeOnIce': '818:01', 'penaltyMinutes': '18', 'faceOffPct': 0.0, 'faceOffWins': 3, 'shotPct': 0.0, 'gameWinningGoals': 4, 'overTimeGoals': 2, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '02:02', 'blocked': 17, 'plusMinus': 2, 'points': 58, 'shifts': 1086, 'timeOnIcePerGame': '20:06', 'evenTimeOnIcePerGame': '15:43', 'shortHandedTimeOnIcePerGame': '00:02', 'powerPlayTimeOnIcePerGame': '04:20'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}]}]}
 ```
 
 #### Split Statistics by Team
 
+This returns a lot of data. Not all data that is returned is shown below.
+
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.split_by_team(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.split_by_team(2017,2018)
+{'stats': [{'type': {'displayName': 'vsTeam'}, 'splits': [{'season': '20172018', 'stat': {'timeOnIce': '81:48', 'assists': 4, 'goals': 3, 'pim': 2, 'shots': 20, 'games': 4, 'hits': 5, 'powerPlayGoals': 1, 'powerPlayPoints': 3, 'powerPlayTimeOnIce': '21:21', 'evenTimeOnIce': '60:27', 'penaltyMinutes': '2', 'faceOffWins': 0, 'shotPct': 0.15, 'gameWinningGoals': 1, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 1, 'plusMinus': 1, 'points': 7, 'shifts': 79, 'timeOnIcePerGame': '20:27', 'evenTimeOnIcePerGame': '15:06', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '05:20'}, 'opponent': {'id': 1, 'name': 'New Jersey Devils', 'link': '/api/v1/teams/1'}, 'opponentDivision': {'id': 18, 'name': 'Metropolitan', 'link': '/api/v1/divisions/18'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}, {'season': '20172018', 'stat': {'timeOnIce': '83:24', 'assists': 2, 'goals': 0, 'pim': 2, 'shots': 13, 'games': 4, 'hits': 1, 'powerPlayGoals': 0, 'powerPlayPoints': 1, 'powerPlayTimeOnIce': '20:10', 'evenTimeOnIce': '63:14', 'penaltyMinutes': '2', 'faceOffWins': 0, 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 0, 'plusMinus': 0, 'points': 2, 'shifts': 82, 'timeOnIcePerGame': '20:51', 'evenTimeOnIcePerGame': '15:48', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '05:02'}, 'opponent': {'id': 2, 'name': 'New York Islanders', 'link': '/api/v1/teams/2'}, 'opponentDivision': {'id': 18, 'name': 'Metropolitan', 'link': '/api/v1/divisions/18'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}, {'season': '20172018', 'stat': {'timeOnIce': '79:52', 'assists': 2, 'goals': 1, 'pim': 2, 'shots': 22, 'games': 4, 'hits': 5, 'powerPlayGoals': 1, 'powerPlayPoints': 1, 'powerPlayTimeOnIce': '19:15', 'evenTimeOnIce': '60:37', 'penaltyMinutes': '2', 'faceOffWins': 0, 'shotPct': 0.0455, 'gameWinningGoals': 1, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 0, 'plusMinus': 6, 'points': 3, 'shifts': 84, 'timeOnIcePerGame': '19:58', 'evenTimeOnIcePerGame': '15:09', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '04:48'}, 'opponent': {'id': 3, 'name': 'New York Rangers', 'link': '/api/v1/teams/3'}, 'opponentDivision': {'id': 18, 'name': 'Metropolitan', 'link': '/api/v1/divisions/18'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}, {'season': '20172018', 'stat': {'timeOnIce': '74:58', 'assists': 1, 'goals': 2, 'pim': 0, 'shots': 14, 'games': 4, 'hits': 7, 'powerPlayGoals': 1, 'powerPlayPoints': 1, 'powerPlayTimeOnIce': '14:07', 'evenTimeOnIce': '60:51', 'penaltyMinutes': '0', 'faceOffPct': 0.3333, 'faceOffWins': 1, 'shotPct': 0.1429, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 0, 'plusMinus': -8, 'points': 3, 'shifts': 84, 'timeOnIcePerGame': '18:44', 'evenTimeOnIcePerGame': '15:12', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '03:31'}, 'opponent': {'id': 4, 'name': 'Philadelphia Flyers', 'link': '/api/v1/teams/4'}, 'opponentDivision': {'id': 18, 'name': 'Metropolitan', 'link': '/api/v1/divisions/18'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}, {'season': '20172018', 'stat': {'timeOnIce': '83:52', 'assists': 2, 'goals': 3, 'pim': 2, 'shots': 18, 'games': 4, 'hits': 9, 'powerPlayGoals': 0, 'powerPlayPoints': 1, 'powerPlayTimeOnIce': '25:14', 'evenTimeOnIce': '58:38', 'penaltyMinutes': '2', 'faceOffWins': 0, 'shotPct': 0.1667, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 3, 'plusMinus': 4, 'points': 5, 'shifts': 84, 'timeOnIcePerGame': '20:58', 'evenTimeOnIcePerGame': '14:39', 'shortHandedTimeOnIcePerGame': '00:00', 'powerPlayTimeOnIcePerGame': '06:18'}, 'opponent': {'id': 5, 'name': 'Pittsburgh Penguins', 'link': '/api/v1/teams/5'}, 'opponentDivision': {'id': 18, 'name': 'Metropolitan', 'link': '/api/v1/divisions/18'}, 'opponentConference': {'id': 6, 'name': 'Eastern', 'link': '/api/v1/conferences/6'}}, {'season': '20172018', 'stat': {'timeOnIce': '61:06', 'assists': 1, 'goals': 3, 'pim': 0, 'shots': 12, 'games': 3, 'hits': 7, 'powerPlayGoals': 1, 'powerPlayPoints': 2, 'powerPlayTimeOnIce': '16:28', 'evenTimeOnIce': '44:38', 'penaltyMinutes': '0', 'faceOffWins': 0, 'shotPct': 0.25, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 2, 'plusMinus': 2, 'points': 4, 'shifts': 60, 'timeOnIcePerGame': '20:22', 'evenTimeOnIcePerGame': '14:52',}
 ```
 
 #### Split Statistics by Game
 
+This returns a lot of data. Not all data that is returned is shown below.
+
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.split_by_game(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.split_by_game(2017,2018)
+{'link': '/api/v1/game/2017020106/content'}}}, {'season': '20172018', 'stat': {'timeOnIce': '20:44', 'assists': 0, 'goals': 0, 'pim': 2, 'shots': 4, 'games': 1, 'hits': 3, 'powerPlayGoals': 0, 'powerPlayPoints': 0, 'powerPlayTimeOnIce': '04:57', 'evenTimeOnIce': '15:47', 'penaltyMinutes': '2', 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 0, 'plusMinus': -1, 'points': 0, 'shifts': 20}, 'team': {'id': 15, 'name': 'Washington Capitals', 'link': '/api/v1/teams/15'}, 'opponent': {'id': 10, 'name': 'Toronto Maple Leafs', 'link': '/api/v1/teams/10'}, 'date': '2017-10-17', 'isHome': True, 'isWin': False, 'isOT': False, 'game': {'gamePk': 2017020084, 'link': '/api/v1/game/2017020084/feed/live', 'content': {'link': '/api/v1/game/2017020084/content'}}}, {'season': '20172018', 'stat': {'timeOnIce': '14:25', 'assists': 0, 'goals': 0, 'pim': 0, 'shots': 6, 'games': 1, 'hits': 2, 'powerPlayGoals': 0, 'powerPlayPoints': 0, 'powerPlayTimeOnIce': '02:38', 'evenTimeOnIce': '11:47', 'penaltyMinutes': '0', 'faceOffPct': 0.0, 'shotPct': 0.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 0, 'plusMinus': -4, 'points': 0, 'shifts': 19}, 'team': {'id': 15, 'name': 'Washington Capitals', 'link': '/api/v1/teams/15'}, 'opponent': {'id': 4, 'name': 'Philadelphia Flyers', 'link': '/api/v1/teams/4'}, 'date': '2017-10-14', 'isHome': False, 'isWin': False, 'isOT': False, 'game': {'gamePk': 2017020066, 'link': '/api/v1/game/2017020066/feed/live', 'content': {'link': '/api/v1/game/2017020066/content'}}}, {'season': '20172018', 'stat': {'timeOnIce': '19:00', 'assists': 1, 'goals': 1, 'pim': 0, 'shots': 4, 'games': 1, 'hits': 1, 'powerPlayGoals': 1, 'powerPlayPoints': 2, 'powerPlayTimeOnIce': '06:18', 'evenTimeOnIce': '12:42', 'penaltyMinutes': '0', 'shotPct': 25.0, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0, 'shortHandedTimeOnIce': '00:00', 'blocked': 0, 'plusMinus': 0, 'points': 2, 'shifts': 22}, 'team': {'id': 15, 'name': 'Washington Capitals', 'link': '/api/v1/teams/15'}, 'opponent': {'id': 1, 'name': 'New Jersey Devils', 'link': '/api/v1/teams/1'}, 'date': '2017-10-13', 'isHome': False, 'isWin': True, 'isOT': False, 'game': {'gamePk': 2017020058, 'link': '/api/v1/game/2017020058/feed/live', 'content': {'link': '/api/v1/game/2017020058/content'}}}, {'season': '20172018', 'stat': {'timeOnIce': '19:36', 'assists': 0, 'goals': 1, 'pim': 0, 'shots': 7, 'games': 1, 'hits': 1, 'powerPlayGoals': 0, 'powerPlayPoints': 0, 'powerPlayTimeOnIce': '05:52', 'evenTimeOnIce': '13:44', 'penaltyMinutes': '0', 'shotPct': 14.3, 'gameWinningGoals': 0, 'overTimeGoals': 0, 'shortHandedGoals': 0, 'shortHandedPoints': 0}
 ```
 
 #### Regular Season Standing of Player
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.standing(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.standing(2017,2018)
+{'stats': [{'type': {'displayName': 'regularSeasonStatRankings'}, 'splits': [{'season': '20172018', 'stat': {'rankPowerPlayGoals': '2nd', 'rankBlockedShots': '571st', 'rankAssists': '68th', 'rankShotPct': '126th', 'rankGoals': '1st', 'rankHits': '76th', 'rankPenaltyMinutes': '248th', 'rankShortHandedGoals': '146th', 'rankPlusMinus': '240th', 'rankShots': '1st', 'rankPoints': '11th', 'rankOvertimeGoals': '3rd', 'rankGamesPlayed': '1st'}}]}]}
 ```
 
 #### Goals by Situation
 
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.goals_by_situation(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.goals_by_situation(2017,2018)
+{'stats': [{'type': {'displayName': 'goalsByGameSituation'}, 'splits': [{'season': '20172018', 'stat': {'goalsInFirstPeriod': 16, 'goalsInSecondPeriod': 16, 'goalsInThirdPeriod': 14, 'goalsInOvertime': 3, 'gameWinningGoals': 7, 'emptyNetGoals': 3, 'shootOutGoals': 2, 'shootOutShots': 3, 'goalsTrailingByOne': 14, 'goalsTrailingByTwo': 4, 'goalsWhenTied': 15, 'goalsLeadingByOne': 9, 'goalsLeadingByTwo': 4, 'goalsLeadingByThreePlus': 3, 'penaltyGoals': 0, 'penaltyShots': 0}}]}]}
 ```
 
 #### Projected Statistics based on Current Regular Season Pace
 
+This only works during the regular NHL season.
+
 ```python
-ovechkin = Player(8471214)
-print(ovechkin.split_by_team(2017,2018))
+>>> ovechkin = player.Player(8471214)
+>>> ovechkin.on_pace_stats(2017,2018)
+{'stats': [{'type': {'displayName': 'onPaceRegularSeason'}, 'splits': []}]}
 ```
 
-__Note__: Each one of the above methods makes a request to the NHL API
+### Schedules <a name="schedules"></a>
+
+The schedule module must be imported for any of the below to work.
+
+```python
+>>> from nhlpy import team
+```

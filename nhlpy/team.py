@@ -22,10 +22,6 @@ class Team:
         del self.data['copyright']
         return self.data
 
-    def name(self):
-        for team in self.data['teams']:
-            print(team['name'])
-
     def next_game(self):
         path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
         path = path + '?expand=team.schedule.next'
@@ -56,7 +52,7 @@ class Team:
     """
     Only returns the single season stats and regular season stat ranknings
     """
-    def stats_simple(self):
+    def simple_stats(self):
         response = requests.get('%s/teams/%s/stats' % (BASE_URL, str(self.id)))
         self.data = response.json()
         del self.data['copyright']

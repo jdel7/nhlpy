@@ -13,39 +13,47 @@ logger.addHandler(logger_console_handler)
 
 
 class Team:
+    def __init__(self, team_id, populate=False):
+        self._id = team_id
+        self.Info = None
+        self.LastGame = None
+        self.NextGame = None
+        self.Roster = None
+        self.SimpleStats = None
+        self.Stats = None
 
-    def __init__(self, id):
-        self.id = id
+        if populate:
+            self.populate_all_data()
 
     def info(self):
-        response = requests.get('%s/teams/%s' % (BASE_URL, str(self.id)))
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
+        response = requests.get('%s/teams/%s' % (BASE_URL, str(self._id)))
+        data = self.pre_process_data(response.json())
+        self.Info = data
+        logger.debug(data)
 
-    def roster(self):
-        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
-        path = path + '?expand=team.roster'
+    def last_game(self):
+        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self._id)
+        path = path + '?expand=team.schedule.previous'
         response = requests.get(path)
         data = self.pre_process_data(response.json())
         self.LastGame = data
         logger.debug(data)
 
     def next_game(self):
-        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
+        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self._id)
         path = path + '?expand=team.schedule.next'
         response = requests.get(path)
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
+        data = self.pre_process_data(response.json())
+        self.NextGame = data
+        logger.debug(data)
 
-    def last_game(self):
-        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
-        path = path + '?expand=team.schedule.previous'
+    def roster(self):
+        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self._id)
+        path = path + '?expand=team.roster'
         response = requests.get(path)
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
+        data = self.pre_process_data(response.json())
+        self.Roster = data
+        logger.debug(data)
 
     def simple_stats(self):
         """
@@ -63,20 +71,26 @@ class Team:
         path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self._id)
         path = path + '?expand=team.stats'
         response = requests.get(path)
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
+        data = self.pre_process_data(response.json())
+        self.Stats = data
+        logger.debug(data)
 
-    """
-    Only returns the single season stats and regular season stat ranknings
-    """
-    def simple_stats(self):
-        response = requests.get('%s/teams/%s/stats' % (BASE_URL, str(self.id)))
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
+    @staticmethod
+    def pre_process_data(data):
+        try:
+            data = data['teams'][0]
+        except KeyError:
+            logger.warning('Copyright data not found in response object when attempting to remove it from payload')
 
+        return data
 
+    def populate_all_data(self):
+        self.info()
+        self.last_game()
+        self.next_game()
+        self.roster()
+        self.simple_stats()
+        self.stats()
 
 
 class SimpleStats(object):

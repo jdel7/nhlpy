@@ -1,7 +1,16 @@
+import logging
 import requests
-import json
 
 from .constants import BASE_URL
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger_console_handler = logging.StreamHandler()
+logger_console_handler.setLevel(logging.INFO)
+logger_formatter = logging.Formatter('%(asctime)s - %(name)s:%(lineno)s - %(levelname)s - %(message)s')
+logger_console_handler.setFormatter(logger_formatter)
+logger.addHandler(logger_console_handler)
+
 
 class Team:
 

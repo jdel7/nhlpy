@@ -77,10 +77,16 @@ class Team:
 
     @staticmethod
     def pre_process_data(data):
-        try:
-            data = data['teams'][0]
-        except KeyError:
-            logger.warning('Copyright data not found in response object when attempting to remove it from payload')
+        if 'stats' in data:
+            try:
+                data = data['stats']
+            except KeyError:
+                logger.warning('Expected a "stats" object to be able to return within the data-set, object not found')
+        else:
+            try:
+                data = data['teams'][0]
+            except KeyError:
+                logger.warning('Expected a "teams" object to be able to return within the data-set, object not found')
 
         return data
 
@@ -91,130 +97,170 @@ class Team:
         self.roster()
         self.simple_stats()
         self.stats()
+        
+        
+class Info(object):
+    def __init__(self):
+        self.example_data = {  
+            'conference': {
+                'link': '/api/v1/conferences/5',
+                'id': 5,
+                'name': 'Western'
+            },
+            'locationName': 'Vegas',
+            'name': 'Vegas Golden Knights',
+            'division': {
+                'link': '/api/v1/divisions/15',
+                'id': 15,
+                'name': 'Pacific'
+            },
+            'firstYearOfPlay': '2016',
+            'venue': {
+                'city': 'Las Vegas',
+                'link': '/api/v1/venues/null',
+                'name': 'T-Mobile Arena',
+                'timeZone': {
+                    'tz': 'PDT',
+                    'id': 'America/Los_Angeles',
+                    'offset': -7
+                }
+            },
+            'teamName': 'Golden Knights',
+            'abbreviation': 'VGK',
+            'active': True,
+            'franchiseId': 38,
+            'link': '/api/v1/teams/54',
+            'officialSiteUrl': 'http://www.vegasgoldenknights.com',
+            'franchise': {
+                'franchiseId': 38,
+                'link': '/api/v1/franchises/38',
+                'teamName': 'Golden Knights'
+            },
+            'shortName': 'Vegas',
+            'id': 54
+        }
 
 
 class SimpleStats(object):
     def __init__(self):
         self.example_data = {
-            {
-                'conference': {
-                    'link': '/api/v1/conferences/5',
-                    'id': 5,
-                    'name': 'Western'
-                },
-                'locationName': 'Vegas',
-                'name': 'Vegas Golden Knights',
-                'division': {
-                    'link': '/api/v1/divisions/15',
-                    'id': 15,
-                    'name': 'Pacific'
-                },
-                'firstYearOfPlay': '2016',
-                'teamStats': [
-                    {
-                        'type': {
-                            'displayName': 'statsSingleSeason'
-                        },
-                        'splits': [
-                            {
-                                'stat': {
-                                    'faceOffsWon': 2439.0,
-                                    'goalsAgainstPerGame': 2.744,
-                                    'winScoreFirst': 0.829,
-                                    'winLeadFirstPer': 0.75,
-                                    'goalsPerGame': 3.268,
-                                    'evGGARatio': 1.121,
-                                    'powerPlayGoalsAgainst': 44.0,
-                                    'pts': 109,
-                                    'powerPlayGoals': 53.0,
-                                    'shootingPctg': 10.0,
-                                    'shotsPerGame': 32.7561,
-                                    'savePctg': 0.911,
-                                    'faceOffsLost': 2548.0,
-                                    'powerPlayPercentage': '21.4',
-                                    'ptPctg': '66.5',
-                                    'winOutshootOpp': 0.688,
-                                    'powerPlayOpportunities': 248.0,
-                                    'shotsAllowed': 30.7439,
-                                    'winLeadSecondPer': 0.861,
-                                    'faceOffsTaken': 4987.0,
-                                    'winOppScoreFirst': 0.415,
-                                    'gamesPlayed': 82,
-                                    'faceOffWinPercentage': '48.9',
-                                    'wins': 51,
-                                    'losses': 24,
-                                    'winOutshotByOpp': 0.517,
-                                    'penaltyKillPercentage': '81.4',
-                                    'ot': 7
-                                },
-                                'team': {
-                                    'link': '/api/v1/teams/54',
-                                    'id': 54,
-                                    'name': 'Vegas Golden Knights'
-                                }
+            'conference': {
+                'link': '/api/v1/conferences/5',
+                'id': 5,
+                'name': 'Western'
+            },
+            'locationName': 'Vegas',
+            'name': 'Vegas Golden Knights',
+            'division': {
+                'link': '/api/v1/divisions/15',
+                'id': 15,
+                'name': 'Pacific'
+            },
+            'firstYearOfPlay': '2016',
+            'teamStats': [
+                {
+                    'type': {
+                        'displayName': 'statsSingleSeason'
+                    },
+                    'splits': [
+                        {
+                            'stat': {
+                                'faceOffsWon': 2439.0,
+                                'goalsAgainstPerGame': 2.744,
+                                'winScoreFirst': 0.829,
+                                'winLeadFirstPer': 0.75,
+                                'goalsPerGame': 3.268,
+                                'evGGARatio': 1.121,
+                                'powerPlayGoalsAgainst': 44.0,
+                                'pts': 109,
+                                'powerPlayGoals': 53.0,
+                                'shootingPctg': 10.0,
+                                'shotsPerGame': 32.7561,
+                                'savePctg': 0.911,
+                                'faceOffsLost': 2548.0,
+                                'powerPlayPercentage': '21.4',
+                                'ptPctg': '66.5',
+                                'winOutshootOpp': 0.688,
+                                'powerPlayOpportunities': 248.0,
+                                'shotsAllowed': 30.7439,
+                                'winLeadSecondPer': 0.861,
+                                'faceOffsTaken': 4987.0,
+                                'winOppScoreFirst': 0.415,
+                                'gamesPlayed': 82,
+                                'faceOffWinPercentage': '48.9',
+                                'wins': 51,
+                                'losses': 24,
+                                'winOutshotByOpp': 0.517,
+                                'penaltyKillPercentage': '81.4',
+                                'ot': 7
                             },
-                            {
-                                'stat': {
-                                    'faceOffsWon': '20th',
-                                    'losses': '5th',
-                                    'winScoreFirst': '6th',
-                                    'winLeadFirstPer': '15th',
-                                    'penaltyKillOpportunities': '13th',
-                                    'goalsPerGame': '5th',
-                                    'evGGARatio': '9th',
-                                    'powerPlayGoalsAgainst': '6th',
-                                    'pts': '5th',
-                                    'powerPlayGoals': '12th',
-                                    'shotsPerGame': '11th',
-                                    'faceOffsLost': '22nd',
-                                    'powerPlayPercentage': '11th',
-                                    'ptPctg': '5th',
-                                    'savePctRank': '12th',
-                                    'winOutshootOpp': '1st',
-                                    'powerPlayOpportunities': '15th',
-                                    'shootingPctRank': '8th',
-                                    'shotsAllowed': '7th',
-                                    'winLeadSecondPer': '15th',
-                                    'faceOffsTaken': '16th',
-                                    'winOppScoreFirst': '6th',
-                                    'faceOffWinPercentage': '22nd',
-                                    'wins': '4th',
-                                    'goalsAgainstPerGame': '8th',
-                                    'winOutshotByOpp': '1st',
-                                    'penaltyKillPercentage': '10th',
-                                    'ot': '24th'
-                                },
-                                'team': {
-                                    'link': '/api/v1/teams/54',
-                                    'id': 54,
-                                    'name': 'Vegas Golden Knights'
-                                }
+                            'team': {
+                                'link': '/api/v1/teams/54',
+                                'id': 54,
+                                'name': 'Vegas Golden Knights'
                             }
-                        ]
-                    }
-                ],
-                'venue': {
-                    'city': 'Las Vegas',
-                    'link': '/api/v1/venues/null',
-                    'name': 'T-Mobile Arena',
-                    'timeZone': {
-                        'tz': 'PDT',
-                        'id': 'America/Los_Angeles',
-                        'offset': -7
-                    }
-                },
-                'teamName': 'Golden Knights',
-                'abbreviation': 'VGK',
-                'active': True,
+                        },
+                        {
+                            'stat': {
+                                'faceOffsWon': '20th',
+                                'losses': '5th',
+                                'winScoreFirst': '6th',
+                                'winLeadFirstPer': '15th',
+                                'penaltyKillOpportunities': '13th',
+                                'goalsPerGame': '5th',
+                                'evGGARatio': '9th',
+                                'powerPlayGoalsAgainst': '6th',
+                                'pts': '5th',
+                                'powerPlayGoals': '12th',
+                                'shotsPerGame': '11th',
+                                'faceOffsLost': '22nd',
+                                'powerPlayPercentage': '11th',
+                                'ptPctg': '5th',
+                                'savePctRank': '12th',
+                                'winOutshootOpp': '1st',
+                                'powerPlayOpportunities': '15th',
+                                'shootingPctRank': '8th',
+                                'shotsAllowed': '7th',
+                                'winLeadSecondPer': '15th',
+                                'faceOffsTaken': '16th',
+                                'winOppScoreFirst': '6th',
+                                'faceOffWinPercentage': '22nd',
+                                'wins': '4th',
+                                'goalsAgainstPerGame': '8th',
+                                'winOutshotByOpp': '1st',
+                                'penaltyKillPercentage': '10th',
+                                'ot': '24th'
+                            },
+                            'team': {
+                                'link': '/api/v1/teams/54',
+                                'id': 54,
+                                'name': 'Vegas Golden Knights'
+                            }
+                        }
+                    ]
+                }
+            ],
+            'venue': {
+                'city': 'Las Vegas',
+                'link': '/api/v1/venues/null',
+                'name': 'T-Mobile Arena',
+                'timeZone': {
+                    'tz': 'PDT',
+                    'id': 'America/Los_Angeles',
+                    'offset': -7
+                }
+            },
+            'teamName': 'Golden Knights',
+            'abbreviation': 'VGK',
+            'active': True,
+            'franchiseId': 38,
+            'link': '/api/v1/teams/54',
+            'officialSiteUrl': 'http://www.vegasgoldenknights.com',
+            'franchise': {
                 'franchiseId': 38,
-                'link': '/api/v1/teams/54',
-                'officialSiteUrl':             'http://www.vegasgoldenknights.com',
-                'franchise': {
-                    'franchiseId': 38,
-                    'link': '/api/v1/franchises/38',
-                    'teamName': 'Golden Knights'
-                },
-                'shortName': 'Vegas',
-                'id': 54
-            }
+                'link': '/api/v1/franchises/38',
+                'teamName': 'Golden Knights'
+            },
+            'shortName': 'Vegas',
+            'id': 54
         }

@@ -27,9 +27,9 @@ class Team:
         path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
         path = path + '?expand=team.roster'
         response = requests.get(path)
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
+        data = self.pre_process_data(response.json())
+        self.LastGame = data
+        logger.debug(data)
 
     def next_game(self):
         path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
@@ -47,11 +47,20 @@ class Team:
         del self.data['copyright']
         return self.data
 
-    """
-    Returns single season stats, regular season stat rankings, and general information about team
-    """
+    def simple_stats(self):
+        """
+        Only returns the single season stats and regular season stat rankings
+        """
+        response = requests.get('%s/teams/%s/stats' % (BASE_URL, str(self._id)))
+        data = self.pre_process_data(response.json())
+        self.SimpleStats = data
+        logger.debug(data)
+
     def stats(self):
-        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self.id)
+        """
+        Returns single season stats, regular season stat rankings, and general information about team
+        """
+        path = 'https://statsapi.web.nhl.com/api/v1/teams/{}'.format(self._id)
         path = path + '?expand=team.stats'
         response = requests.get(path)
         self.data = response.json()
@@ -70,3 +79,6 @@ class Team:
 
 
 
+class SimpleStats(object):
+    def __init__(self):
+        pass

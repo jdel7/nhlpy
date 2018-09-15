@@ -105,7 +105,7 @@ of JSON viewer. A small sample of the data is being shown.
 
 #### Getting a game's boxscore
 
-This returns a lot of data too. Not all of it shown below. 
+This returns a lot of data too. Not all of it shown below.
 
 ```python
 >>> knights_vs_jackets = game.Game(2017021023)

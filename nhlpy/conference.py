@@ -1,7 +1,7 @@
 import requests
-import json
 
 from .constants import BASE_URL
+
 
 class Conference:
 
@@ -10,9 +10,9 @@ class Conference:
     """
 
     def all(self):
-        response = requests.get('%s/conferences' % (BASE_URL))
+        response = requests.get("%s/conferences" % (BASE_URL))
         self.data = response.json()
-        del self.data['copyright']
+        del self.data["copyright"]
         return self.data
 
     """
@@ -21,8 +21,17 @@ class Conference:
 
     def info(self, id):
         self.id = id
-        response = requests.get('%s/conferences/%s' % (BASE_URL, self.id))
-        self.data = response.json()
-        del self.data['copyright']
-        return self.data
 
+        if self.id == 0:
+            raise Exception("The conference ID cannot be 0")
+
+        if self.id > 7:
+            raise Exception("The conference ID cannot be an int greater than 7")
+
+        if self.id < 0:
+            raise Exception("The conference ID cannot be a negative int")
+
+        response = requests.get("%s/conferences/%s" % (BASE_URL, self.id))
+        self.data = response.json()
+        del self.data["copyright"]
+        return self.data

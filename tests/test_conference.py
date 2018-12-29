@@ -1,20 +1,26 @@
-import pytest
 from nhlpy import conference
+import pytest
 
-def first_key(dictionary):
-    for key in dictionary:
-        return key
 
-def test_conference_all():
-    conf = conference.Conference()
-    response = conf.all()
-    assert isinstance(response, dict)
-    assert first_key(response) == 'conferences'
-    
-def test_conference_info():
-    conf = conference.Conference()
-    response = conf.info(5)
-    assert isinstance(response, dict)
-    assert first_key(response) == 'conferences'
+def test_id_equals_zero():
+    with pytest.raises(Exception) as excinfo:
+        conf = conference.Conference()
+        conf.info(0)
+    assert 'The conference ID cannot be 0' in str(excinfo.value)
+
+
+def test_id_is_greater_than_seven():
+    with pytest.raises(Exception) as excinfo:
+        conf = conference.Conference()
+        conf.info(9)
+    assert 'The conference ID cannot be an int greater than 7' in str(excinfo.value)
+
+
+def test_id_is_not_negative():
+    with pytest.raises(Exception) as excinfo:
+        conf = conference.Conference()
+        conf.info(-1)
+    assert 'The conference ID cannot be a negative int' in str(excinfo.value)
+
 
 

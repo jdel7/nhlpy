@@ -8,7 +8,7 @@ class Conference:
 
     Provides information about the conferences in the NHL. The class does
     not take in any parameters when instantiated. After it is instantiated
-    it does have two instance variables, ``id`` and ``data``.
+    it does have two instance variables ``id`` and ``data``.
 
     Usage::
     >>> from nhlpy import conference
@@ -34,7 +34,7 @@ class Conference:
         return self.data
 
     def info(self, id):
-        """Information from a specific conference ID.
+        """Information from a specific conference.
 
         The only valid conference ID's are 1-7. If you try to use
         a number greater than 7, or 0 or less, then an exception

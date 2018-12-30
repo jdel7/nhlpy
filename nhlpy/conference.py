@@ -40,7 +40,8 @@ class Conference:
         a number greater than 7, or 0 or less, then an exception
         will be raised.
 
-        :param id: The ID of the conference
+        :param id: The ID of the conference (only valid integers are 1-7)
+        :type id: int
         :returns: information about that specific conference
         :rtype: dictionary
         """

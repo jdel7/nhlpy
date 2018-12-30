@@ -36,6 +36,10 @@ class Conference:
     def info(self, id):
         """Information from a specific conference ID.
 
+        The only valid conference ID's are 1-7. If you try to use
+        a number greater than 7, or 0 or less, then an exception
+        will be raised.
+
         :param id: The ID of the conference
         :returns: information about that specific conference
         :rtype: dictionary

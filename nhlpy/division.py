@@ -46,6 +46,15 @@ class Division:
         """
         self.id = id
 
+        if self.id == 0:
+            raise Exception("The division ID cannot be 0")
+
+        if self.id < 0:
+            raise Exception("The division ID cannot be a negative int")
+
+        if self.id > 18:
+            raise Exception("The division ID cannot be an int greater than 18")
+
         response = requests.get("%s/divisions/%s" % (BASE_URL, self.id))
         self.data = response.json()
         del self.data["copyright"]

@@ -8,12 +8,13 @@ class Schedule:
     def today(self, id=None):
         self.id = id
         if self.id == None:
-            response = requests.get('%s/schedule' % (BASE_URL))
+            response = requests.get('{0}/schedule'.format(BASE_URL))
             self.data = response.json()
             del self.data['copyright']
             return self.data
         else:
-            response = requests.get('%s/schedule?teamId=%s' % (BASE_URL, str(self.id)))
+            response = requests.get('{0}/schedule?teamId={1}'.format(BASE_URL,
+                                                                     self.id))
             self.data = response.json()
             del self.data['copyright']
             return self.data

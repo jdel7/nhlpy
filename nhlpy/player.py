@@ -13,7 +13,7 @@ class Player:
     """
 
     def info(self):
-        response = requests.get('%s/people/%s' % (BASE_URL, str(self.id)))
+        response = requests.get('{0}/people/{1}'.format(BASE_URL, self.id))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -26,8 +26,9 @@ class Player:
     def season(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=statsSingleSeason&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=statsSingleSeason&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -35,8 +36,9 @@ class Player:
     def home_away(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=homeAndAway&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=homeAndAway&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -44,8 +46,9 @@ class Player:
     def win_loss(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=winLoss&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=winLoss&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -53,8 +56,9 @@ class Player:
     def split_by_month(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=byMonth&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=byMonth&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -62,8 +66,9 @@ class Player:
     def split_by_day(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=byDayOfWeek&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=byDayOfWeek&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -71,8 +76,9 @@ class Player:
     def split_by_division(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=vsDivision&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=vsDivision&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -80,8 +86,9 @@ class Player:
     def split_by_conference(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=vsConference&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=vsConference&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -89,8 +96,9 @@ class Player:
     def split_by_team(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=vsTeam&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=vsTeam&season=' 
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -98,8 +106,9 @@ class Player:
     def split_by_game(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=gameLog&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=gameLog&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -107,8 +116,9 @@ class Player:
     def standing(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=regularSeasonStatRankings&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=regularSeasonStatRankings&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -116,8 +126,9 @@ class Player:
     def goals_by_situation(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=goalsByGameSituation&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=goalsByGameSituation&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
@@ -128,21 +139,9 @@ class Player:
     def on_pace_stats(self, year_start, year_end):
         self.year_start = year_start
         self.year_end = year_end
-        response = requests.get('%s/people/%s/%s%s%s' % (BASE_URL, str(self.id),
-            'stats?stats=onPaceRegularSeason&season=', str(self.year_start), str(self.year_end)))
+        path = 'stats?stats=onPaceRegularSeason&season='
+        response = requests.get('{0}/people/{1}/{2}{3}{4}'.format(BASE_URL, self.id,
+            path, self.year_start, self.year_end))
         self.data = response.json()
         del self.data['copyright']
         return self.data
-
-
-
-
-
-
-
-
-
-
-
-
-

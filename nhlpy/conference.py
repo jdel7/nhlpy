@@ -27,7 +27,7 @@ class Conference:
         :returns: information about all conferences
         :rtype: dictionary
         """
-        response = requests.get('{0}/conferences'.format(BASE_URL))
+        response = requests.get("{0}/conferences".format(BASE_URL))
         self.data = response.json()
         del self.data["copyright"]
 
@@ -56,7 +56,7 @@ class Conference:
         if self.id < 0:
             raise Exception("The conference ID cannot be a negative int")
 
-        response = requests.get('{0}/conferences/{1}'.format(BASE_URL, self.id))
+        response = requests.get("{0}/conferences/{1}".format(BASE_URL, self.id))
         self.data = response.json()
         del self.data["copyright"]
 

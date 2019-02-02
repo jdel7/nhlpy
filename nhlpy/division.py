@@ -27,7 +27,7 @@ class Division:
         :returns: information about all divisions
         :rtype: dictionary
         """
-        response = requests.get('{0}/divisions'.format(BASE_URL))
+        response = requests.get("{0}/divisions".format(BASE_URL))
         self.data = response.json()
         del self.data["copyright"]
 
@@ -55,7 +55,7 @@ class Division:
         if self.id > 18:
             raise Exception("The division ID cannot be an int greater than 18")
 
-        response = requests.get('{0}/divisions/{1}'.format(BASE_URL, self.id))
+        response = requests.get("{0}/divisions/{1}".format(BASE_URL, self.id))
         self.data = response.json()
         del self.data["copyright"]
 

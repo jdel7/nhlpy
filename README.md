@@ -12,11 +12,7 @@ To install nhlpy with pip:
 pip install nhlpy
 ```
 
-To install nhlpy in a pipenv environment:
-
-```python
-pipenv install nhlpy
-```
+Make sure you have `requests` installed in your current Python environment. If not then install it with `pip install requests`
 
 ## Usage
 

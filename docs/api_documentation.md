@@ -19,7 +19,7 @@ __Note__: Each one of the below methods makes a single request to the NHL API
 ### Teams <a name="teams"></a>
 
 The NHL API gives each team in the league an ID number. When working with the Team class, each instance of Team
-takes a team id as a parameter. For a list of known team id's please see the document [team-ids.md](https://google.com).
+takes a team id as a parameter. For a list of known team id's please see the document [known_team_ids.md](known_team_ids.md).
 
 The team module must be imported for any of the below to work.
 

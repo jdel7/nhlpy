@@ -34,6 +34,19 @@ class Schedule:
         else:
             return self.today()
 
+    def season(self, seasonid=None):
+        self.seasonid = seasonid
+
+        if self.seasonid == None:
+            return self.today()
+        else:
+            response = requests.get(
+                "{0}/schedule{1}{2}".format(BASE_URL, "?season=", self.seasonid)
+            )
+            self.data = response.json()
+            del self.data["copyright"]
+            return self.data
+
     """
     Returns line score for today's completed games. Can't add date parameters to this.
     """

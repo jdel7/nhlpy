@@ -307,5 +307,28 @@ This only works during the regular NHL season.
 The schedule module must be imported for any of the below to work.
 
 ```python
->>> from nhlpy import team
+>>> from nhlpy import schedule
+```
+
+```python
+>>> schedule.Schedule().today(19) # team id 19 is St. Louis Blues (running this 2021-03-28)
+{'totalItems': 1, 'totalEvents': 0, 'totalGames': 1, 'totalMatches': 0, 'wait': 10, 'dates': [{'date': '2021-03-28', 'totalItems': 1, 'totalEvents': 0, 'totalGames': 1, 'totalMatches': 0, 'games': [{'gamePk': 2020020535, 'link': '/api/v1/game/2020020535/feed/live', 'gameType': 'R', 'season': '20202021', 'gameDate': '2021-03-28T21:00:00Z', 'status': {'abstractGameState': 'Final', 'codedGameState': '7', 'detailedState': 'Final', 'statusCode': '7', 'startTimeTBD': False}, 'teams': {'away': {'leagueRecord': {'wins': 11, 'losses': 19, 'ot': 6, 'type': 'league'}, 'score': 3, 'team': {'id': 24, 'name': 'Anaheim Ducks', 'link': '/api/v1/teams/24'}}, 'home': {'leagueRecord': {'wins': 16, 'losses': 13, 'ot': 6, 'type': 'league'}, 'score': 2, 'team': {'id': 19, 'name': 'St. Louis Blues', 'link': '/api/v1/teams/19'}}}, 'venue': {'id': 5076, 'name': 'Enterprise Center', 'link': '/api/v1/venues/5076'}, 'content': {'link': '/api/v1/game/2020020535/content'}}], 'events': [], 'matches': []}]}
+```
+
+The season method provides a dictionary with:
+* summary stats (`totalItems`, `totalEvents`, `totalGames`, `totalMatches`)
+* API wait parameter (`wait`)
+* `dates`: list, containing one item per date.  Each item is a dictionary
+
+```python
+>>> season_20202021 = schedule.Schedule().season(20202021)
+>>> season_20202021.keys()
+dict_keys(['totalItems', 'totalEvents', 'totalGames', 'totalMatches', 'wait', 'dates'])
+```
+
+This returns a lot of data.  Only showing first entry in the list
+
+```python
+>>> season_20202021['dates'][0]
+{'date': '2021-01-13', 'totalItems': 5, 'totalEvents': 0, 'totalGames': 5, 'totalMatches': 0, 'games': [{'gamePk': 2020020001, 'link': '/api/v1/game/2020020001/feed/live', 'gameType': 'R', 'season': '20202021', 'gameDate': '2021-01-13T22:30:00Z', 'status': {'abstractGameState': 'Final', 'codedGameState': '7', 'detailedState': 'Final', 'statusCode': '7', 'startTimeTBD': False}, 'teams': {'away': {'leagueRecord': {'wins': 0, 'losses': 1, 'ot': 0, 'type': 'league'}, 'score': 3, 'team': {'id': 5, 'name': 'Pittsburgh Penguins', 'link': '/api/v1/teams/5'}}, 'home': {'leagueRecord': {'wins': 1, 'losses': 0, 'ot': 0, 'type': 'league'}, 'score': 6, 'team': {'id': 4, 'name': 'Philadelphia Flyers', 'link': '/api/v1/teams/4'}}}, 'venue': {'id': 5096, 'name': 'Wells Fargo Center', 'link': '/api/v1/venues/5096'}, 'content': {'link': '/api/v1/game/2020020001/content'}}, {'gamePk': 2020020003, 'link': '/api/v1/game/2020020003/feed/live', 'gameType': 'R', 'season': '20202021', 'gameDate': '2021-01-14T00:00:00Z', 'status': {'abstractGameState': 'Final', 'codedGameState': '7', 'detailedState': 'Final', 'statusCode': '7', 'startTimeTBD': False}, 'teams': {'away': {'leagueRecord': {'wins': 0, 'losses': 0, 'ot': 1, 'type': 'league'}, 'score': 4, 'team': {'id': 8, 'name': 'Montréal Canadiens', 'link': '/api/v1/teams/8'}}, 'home': {'leagueRecord': {'wins': 1, 'losses': 0, 'ot': 0, 'type': 'league'}, 'score': 5, 'team': {'id': 10, 'name': 'Toronto Maple Leafs', 'link': '/api/v1/teams/10'}}}, 'venue': {'name': 'Scotiabank Arena', 'link': '/api/v1/venues/null'}, 'content': {'link': '/api/v1/game/2020020003/content'}}, {'gamePk': 2020020002, 'link': '/api/v1/game/2020020002/feed/live', 'gameType': 'R', 'season': '20202021', 'gameDate': '2021-01-14T01:00:00Z', 'status': {'abstractGameState': 'Final', 'codedGameState': '7', 'detailedState': 'Final', 'statusCode': '7', 'startTimeTBD': False}, 'teams': {'away': {'leagueRecord': {'wins': 0, 'losses': 1, 'ot': 0, 'type': 'league'}, 'score': 1, 'team': {'id': 16, 'name': 'Chicago Blackhawks', 'link': '/api/v1/teams/16'}}, 'home': {'leagueRecord': {'wins': 1, 'losses': 0, 'ot': 0, 'type': 'league'}, 'score': 5, 'team': {'id': 14, 'name': 'Tampa Bay Lightning', 'link': '/api/v1/teams/14'}}}, 'venue': {'id': 5017, 'name': 'Amalie Arena', 'link': '/api/v1/venues/5017'}, 'content': {'link': '/api/v1/game/2020020002/content'}}, {'gamePk': 2020020004, 'link': '/api/v1/game/2020020004/feed/live', 'gameType': 'R', 'season': '20202021', 'gameDate': '2021-01-14T03:00:00Z', 'status': {'abstractGameState': 'Final', 'codedGameState': '7', 'detailedState': 'Final', 'statusCode': '7', 'startTimeTBD': False}, 'teams': {'away': {'leagueRecord': {'wins': 1, 'losses': 0, 'ot': 0, 'type': 'league'}, 'score': 5, 'team': {'id': 23, 'name': 'Vancouver Canucks', 'link': '/api/v1/teams/23'}}, 'home': {'leagueRecord': {'wins': 0, 'losses': 1, 'ot': 0, 'type': 'league'}, 'score': 3, 'team': {'id': 22, 'name': 'Edmonton Oilers', 'link': '/api/v1/teams/22'}}}, 'venue': {'id': 5100, 'name': 'Rogers Place', 'link': '/api/v1/venues/5100'}, 'content': {'link': '/api/v1/game/2020020004/content'}}, {'gamePk': 2020020005, 'link': '/api/v1/game/2020020005/feed/live', 'gameType': 'R', 'season': '20202021', 'gameDate': '2021-01-14T03:30:00Z', 'status': {'abstractGameState': 'Final', 'codedGameState': '7', 'detailedState': 'Final', 'statusCode': '7', 'startTimeTBD': False}, 'teams': {'away': {'leagueRecord': {'wins': 1, 'losses': 0, 'ot': 0, 'type': 'league'}, 'score': 4, 'team': {'id': 19, 'name': 'St. Louis Blues', 'link': '/api/v1/teams/19'}}, 'home': {'leagueRecord': {'wins': 0, 'losses': 1, 'ot': 0, 'type': 'league'}, 'score': 1, 'team': {'id': 21, 'name': 'Colorado Avalanche', 'link': '/api/v1/teams/21'}}}, 'venue': {'id': 5064, 'name': 'Ball Arena', 'link': '/api/v1/venues/5064'}, 'content': {'link': '/api/v1/game/2020020005/content'}}], 'events': [], 'matches': []}
 ```
